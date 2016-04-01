@@ -1,14 +1,28 @@
-Name = DeProfundis
-ExecutableName = $(Name).exe
+CC = g++
+CFlags = -I ./include -std=c++11
+LDFlags = -L ./lib -lglfw3dll -lopengl32 -lglew32
 
-build: ./bin/$(ExecutableName)
+SourcesFiles = main.cpp Shader.cpp
+ExecutableName = DeProfundis
 
-./bin/$(ExecutableName) : main.cpp
-	g++ -o bin/$(ExecutableName) main.cpp -I ./include -L ./lib -lglfw3dll -lopengl32
+ObjectDir = obj/
+SourceDir = src/
+BinDir = bin/
 
-run: ./bin/$(ExecutableName)
-	./bin/$(ExecutableName)
+ObjectsFiles=$(SourcesFiles:.cpp=.o)
+SOURCES=$(addprefix $(SourceDir),$(SourcesFiles))
+OBJECTS=$(addprefix $(ObjectDir),$(ObjectsFiles))
+EXECUTABLE=$(addprefix $(BinDir),$(ExecutableName))
+
+all: $(SOURCES) $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) -o $@ $(OBJECTS) $(LDFlags)
+
+$(ObjectDir)%.o: $(SourceDir)%.cpp
+	$(CC) -c -o $@ $< $(CFlags)
+
+.PHONY: all clean
 
 clean:
-	cd bin
-	dir
+	rm -f $(OBJECTS)
