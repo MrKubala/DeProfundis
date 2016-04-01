@@ -1,12 +1,14 @@
-ExecutableName = DeProfundis
+Name = DeProfundis
+ExecutableName = $(Name).exe
 
-build: main.cpp
-	g++ -o ./bin/$(ExecutableName).exe main.cpp ./lib/glfw3dll.a -I ./include -L ./lib -lglfw3 -lopengl32
+build: ./bin/$(ExecutableName)
 
-run: ./bin/$(ExecutableName).exe
+./bin/$(ExecutableName) : main.cpp
+	g++ -o bin/$(ExecutableName) main.cpp -I ./include -L ./lib -lglfw3dll -lopengl32
+
+run: ./bin/$(ExecutableName)
 	./bin/$(ExecutableName)
 
 clean:
-	cd .
 	cd bin
 	dir
