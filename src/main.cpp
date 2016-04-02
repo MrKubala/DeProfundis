@@ -41,7 +41,7 @@ int main() {
    glfwSetKeyCallback(window, key_callback);
 
    //SHADERS
-   Shader shader("asdf");
+   Shader shader("basicShader");
 
    while (!glfwWindowShouldClose(window)) {
       glfwPollEvents();

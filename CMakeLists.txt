@@ -11,4 +11,5 @@ set(SOURCE_FILES
 
 add_executable(DeProfundisCMAKE ${SOURCE_FILES})
 
-add_custom_target(DeProfundis ALL COMMAND mingw32-make WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+add_custom_target(DeProfundis ALL COMMAND mingw32-make all WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+add_custom_target(DeProfundisDEBUG ALL COMMAND mingw32-make all DEBUG=-g WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})

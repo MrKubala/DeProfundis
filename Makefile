@@ -1,6 +1,7 @@
 CC = g++
 CFlags = -I ./include -std=c++11
 LDFlags = -L ./lib -lglfw3dll -lopengl32 -lglew32
+DEBUG =
 
 SourcesFiles = main.cpp Shader.cpp
 ExecutableName = DeProfundis
@@ -16,13 +17,20 @@ EXECUTABLE=$(addprefix $(BinDir),$(ExecutableName))
 
 all: $(SOURCES) $(EXECUTABLE)
 
+run: all
+ifeq ($(DEBUG), -g)
+	gdb $(EXECUTABLE)
+else
+	$(EXECUTABLE)
+endif
+
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) -o $@ $(OBJECTS) $(LDFlags)
+	$(CC) -o $@ $(OBJECTS) $(LDFlags) $(DEBUG)
 
 $(ObjectDir)%.o: $(SourceDir)%.cpp
-	$(CC) -c -o $@ $< $(CFlags)
+	$(CC) -c -o $@ $< $(CFlags) $(DEBUG)
 
-.PHONY: all clean
+.PHONY: all run clean
 
 clean:
 	rm -f $(OBJECTS)

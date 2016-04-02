@@ -1,10 +1,13 @@
 #include <fstream>
 #include <iostream>
+#include <string.h>
 #include "Shader.h"
 
 static void checkShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string &errorMessage);
 static std::string loadShader(const std::string &fileName);
-static GLuint createShader(const std::string&text, GLenum shaderType);
+static GLuint createShader(const std::string &text, GLenum shaderType);
+
+const std::string Shader::SHADERS_DIR = "./../shaders/";
 
 Shader::Shader(const std::string &fileName) {
    m_program = glCreateProgram();
@@ -33,18 +36,18 @@ Shader::~Shader() {
    glDeleteProgram(m_program);
 }
 
-void Shader::bind(){
+void Shader::bind() {
    glUseProgram(m_program);
 }
 
-static GLuint createShader(const std::string& text, GLenum shaderType){
+static GLuint createShader(const std::string &text, GLenum shaderType) {
    GLuint shader = glCreateShader(shaderType);
 
-   if(shader == 0){
+   if (shader == 0) {
       std::cerr << "Error: Shader creation failed!" << std::endl;
    }
 
-   const GLchar* shaderSourceStrings[1];
+   const GLchar *shaderSourceStrings[1];
    GLint shaderSourceStringsLengths[1];
 
    shaderSourceStrings[0] = text.c_str();
@@ -59,10 +62,10 @@ static GLuint createShader(const std::string& text, GLenum shaderType){
 }
 
 static std::string loadShader(const std::string &fileName) {
+   std::string shaderLocalization = (Shader::SHADERS_DIR + fileName);
+
    std::ifstream file;
-   std::printf((fileName).c_str());
-   file.open((fileName).c_str());
-   std::cout << fileName << std::endl;
+   file.open(shaderLocalization);
 
    std::string output;
    std::string line;
@@ -71,10 +74,12 @@ static std::string loadShader(const std::string &fileName) {
       while (file.good()) {
          getline(file, line);
          output.append(line + "\n");
+         std::cout << line << std::endl;
       }
    }
    else {
-      std::cerr << "Unable to load shader: " << fileName << std::endl;
+      std::cerr << "Unable to load shader: " << shaderLocalization << std::endl;
+      std::cerr << strerror(errno) << std::endl;
    }
 
    return output;
