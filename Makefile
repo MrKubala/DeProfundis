@@ -1,9 +1,9 @@
 CC = g++
 CFlags = -I ./include -std=c++11
-LDFlags = -L ./lib -lglfw3dll -lopengl32 -lglew32
+LDFlags = -L ./lib -lglfw3dll -lopengl32 -lglew32 -lglew32.dll
 DEBUG =
 
-SourcesFiles = main.cpp Shader.cpp
+SourcesFiles = main_cube.cpp ShaderProgram.cpp GLFWControls.cpp ProgramArguments.cpp
 ExecutableName = DeProfundis
 
 ObjectDir = obj/
