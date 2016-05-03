@@ -3,7 +3,7 @@ CFlags = -I ./include -std=c++11
 LDFlags = -L ./lib  -lSOIL -lglfw3dll -lglew32 -lglew32.dll -lopengl32
 DEBUG =
 
-SourcesFiles = main_cube.cpp ShaderProgram.cpp GLFWControls.cpp ProgramArguments.cpp Texture.cpp
+SourcesFiles = main_cube.cpp ShaderProgram.cpp GLFWControls.cpp ProgramArguments.cpp Texture.cpp Camera.cpp InputProcessor.cpp
 ExecutableName = DeProfundis
 
 ObjectDir = obj/

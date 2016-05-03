@@ -4,6 +4,8 @@
 #include "GLFWControls.hpp"
 #include "ShaderProgram.hpp"
 #include "Texture.h"
+#include "InputProcessor.h"
+#include "Camera.h"
 
 void printOpenGLInfo(){
    const GLubyte *renderer = glGetString(GL_RENDERER);
@@ -150,12 +152,11 @@ int main(int argc, char *argv[]) {
    printOpenGLInfo();
 
    glfwSetErrorCallback(error_callback);
-
    glfwSetKeyCallback(window, key_callback);
-
    glfwSetCursorPosCallback(window, mouse_position_callback);
    glfwSetMouseButtonCallback(window, mouse_button_callback);
    glfwSetScrollCallback(window, mouse_scroll_callback);
+   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
    ShaderProgram program;
    program.AddShaderFromFile(GL_VERTEX_SHADER, "./../shaders/vertexShader.glsl");
@@ -186,6 +187,7 @@ int main(int argc, char *argv[]) {
    glEnableVertexAttribArray(1);
    glBindVertexArray(0);
 
+   Camera camera;
 
    glm::vec3 cubePositions[] = {
    glm::vec3(0.0f, 0.0f, 0.0f),
@@ -200,18 +202,25 @@ int main(int argc, char *argv[]) {
    glm::vec3(-1.3f, 1.0f, -1.5f)
    };
 
-   float lastFrame = 0;
-   float delta = 0;
-
    Texture wallTexture;
    wallTexture.loadTexture("./../assets/wall.bmp");
    glBindTexture(GL_TEXTURE_2D, wallTexture.texture);
 
-   while (!glfwWindowShouldClose(window)) {
-      program.Use();
-      delta = (float) glfwGetTime() - lastFrame;
-      lastFrame += delta;
+   InputProcessor inputProcessor = InputProcessor::getInputProcessor();
 
+   float lastFrame = 0;
+   float deltaTime = 0;
+
+   while (!glfwWindowShouldClose(window)) {
+      //////DELTA TIME CALCULATION//////
+      deltaTime = (float) glfwGetTime() - lastFrame;
+      lastFrame += deltaTime;
+      //////DELTA TIME CALCULATION//////
+
+      inputProcessor.update();
+      camera.update(deltaTime);
+
+      program.Use();
       glBindVertexArray(VAO);
 
       glfwGetWindowSize(window, &win_width, &win_height);
@@ -221,20 +230,17 @@ int main(int argc, char *argv[]) {
       glClearColor(0.4f, 0.6f, 0.6f, 1.f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
       for (int i = 0; i < 10; i++) {
          glm::mat4 m, v, p, mvp;
          m = glm::mat4(1.0);
          v = glm::mat4(1.0);
 
          m = glm::translate(m, cubePositions[i]);
-         m = glm::rotate(m, (GLfloat) glm::radians(glfwGetTime()), glm::vec3(.4f, 0.6f, 0.0f));
+//         m = glm::rotate(m, (GLfloat) glm::radians(glfwGetTime()), glm::vec3(.4f, 0.6f, 0.0f));
          m = glm::scale(m, glm::vec3(1.0f, 1.0f, 1.0f));
 
-         GLfloat radius = 10.f;
-         GLfloat camX = (float)sin(glfwGetTime()) * radius;
-         GLfloat camZ = (float)cos(glfwGetTime()) * radius;
-
-         v = glm::lookAt(glm::vec3(camX, 0.f, camZ), glm::vec3(.0f, .0f, .0f), glm::vec3(.0f, 1.f, .0f));
+         v = camera.GetViewMatrix();
 
          p = glm::perspective(glm::radians(45.f), ratio, 0.1f, 100.f);
 
@@ -246,7 +252,6 @@ int main(int argc, char *argv[]) {
       }
       glBindVertexArray(0);
       glfwSwapBuffers(window);
-      glfwPollEvents();
    }
 
    glfwTerminate();
