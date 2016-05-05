@@ -11,8 +11,9 @@ set(SOURCE_FILES
         src/ProgramArguments.cpp src/ProgramArguments.hpp
         src/GLFWControls.cpp src/GLFWControls.hpp
         src/OpenGL.hpp
-        src/mesh.cpp src/mesh.h
-        src/Texture.cpp src/Texture.h src/Camera.cpp src/Camera.h src/InputProcessor.cpp src/InputProcessor.h)
+        src/Texture.cpp src/Texture.h
+        src/Camera.cpp src/Camera.h
+        src/InputProcessor.cpp src/InputProcessor.h src/MeshOBJ.cpp src/MeshOBJ.h)
 
 add_executable(DeProfundisCMAKE ${SOURCE_FILES})
 

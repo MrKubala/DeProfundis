@@ -81,12 +81,21 @@ public:
    }
 
 
-   void ProcessMouseMovement(GLfloat xoffset, GLfloat yoffset) {
+   void ProcessMouseMovement(GLfloat xoffset, GLfloat yoffset, GLboolean constrainPitch = true) {
       xoffset *= this->MouseSensitivity;
       yoffset *= this->MouseSensitivity;
 
       this->Yaw += xoffset;
       this->Pitch += yoffset;
+
+      if (constrainPitch)
+      {
+         if (this->Pitch > 89.0f)
+            this->Pitch = 89.0f;
+         if (this->Pitch < -89.0f)
+            this->Pitch = -89.0f;
+      }
+
 
       this->updateCameraVectors();
    }

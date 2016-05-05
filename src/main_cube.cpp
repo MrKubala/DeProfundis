@@ -6,119 +6,14 @@
 #include "Texture.h"
 #include "InputProcessor.h"
 #include "Camera.h"
+#include "MeshOBJ.h"
 
-void printOpenGLInfo(){
+void printOpenGLInfo() {
    const GLubyte *renderer = glGetString(GL_RENDERER);
    const GLubyte *version = glGetString(GL_VERSION);
    printf("Renderer: %s\n", renderer);
    printf("OpenGL version supported %s\n", version);
 }
-
-//Mesh createCube(glm::vec3 position, float size, Mesh* cube) {
-//   float offset = size / 2;
-//   Vertex vertices[] = {
-//   Vertex(glm::vec3(position.x + offset, position.y + offset, position.z + offset)),//front
-//   Vertex(glm::vec3(position.x - offset, position.y + offset, position.z + offset)),//front
-//   Vertex(glm::vec3(position.x + offset, position.y - offset, position.z + offset)),//front
-//   Vertex(glm::vec3(position.x - offset, position.y - offset, position.z + offset)),//front
-//
-//   Vertex(glm::vec3(position.x + offset, position.y + offset, position.z - offset)),//back
-//   Vertex(glm::vec3(position.x - offset, position.y + offset, position.z - offset)),//back
-//   Vertex(glm::vec3(position.x + offset, position.y - offset, position.z - offset)),//back
-//   Vertex(glm::vec3(position.x - offset, position.y - offset, position.z - offset)),//back
-//   };
-//
-//   cube = new Mesh(vertices, 8);
-//}
-
-GLfloat vertices[] = {
--0.5f, -0.5f, -0.5f,//back
--0.5f, 0.5f, -0.5f,//back
-0.5f, -0.5f, -0.5f,//back
-0.5f, 0.5f, -0.5f,//back
-0.5f, -0.5f, -0.5f,//back
--0.5f, 0.5f, -0.5f,//back
-
--0.5f, -0.5f, 0.5f,//front
-0.5f, -0.5f, 0.5f,//front
--0.5f, 0.5f, 0.5f,//front
-0.5f, 0.5f, 0.5f,//front
--0.5f, 0.5f, 0.5f,//front
-0.5f, -0.5f, 0.5f,//front
-
-0.5f, 0.5f, 0.5f,//top
-0.5f, 0.5f, -0.5f,//top
--0.5f, 0.5f, -0.5f,//top
--0.5f, 0.5f, 0.5f,//top
-0.5f, 0.5f, 0.5f,//top
--0.5f, 0.5f, -0.5f,//top
-
-0.5f, -0.5f, 0.5f,//bottom
--0.5f, -0.5f, -0.5f,//bottom
-0.5f, -0.5f, -0.5f,//bottom
--0.5f, -0.5f, 0.5f,//bottom
--0.5f, -0.5f, -0.5f,//bottom
-0.5f, -0.5f, 0.5f,//bottom
-
-0.5f, -0.5f, 0.5f,//right
-0.5f, -0.5f, -0.5f,//right
-0.5f, 0.5f, 0.5f,//right
-0.5f, 0.5f, -0.5f,//right
-0.5f, 0.5f, 0.5f,//right
-0.5f, -0.5f, -0.5f,//right
-
--0.5f, -0.5f, 0.5f,//left
--0.5f, 0.5f, 0.5f,//left
--0.5f, -0.5f, -0.5f,//left
--0.5f, 0.5f, -0.5f,//left
--0.5f, -0.5f, -0.5f,//left
--0.5f, 0.5f, 0.5f,//left
-
-};
-
-static const GLfloat uvBufferData[] = {
-0.f, 0.f,
-0.f, 1.f,
-1.f, 0.f,
-1.f, 1.f,
-1.f, 0.f,
-0.f, 1.f,
-
-0.f, 0.f,
-1.f, 0.f,
-0.f, 1.f,
-1.f, 1.f,
-0.f, 1.f,
-1.f, 0.f,
-
-1.f, 1.f,
-1.f, 0.f,
-0.f, 0.f,
-0.f, 1.f,
-1.f, 1.f,
-0.f, 0.f,
-
-1.f, 1.f,
-0.f, 0.f,
-1.f, 0.f,
-0.f, 1.f,
-0.f, 0.f,
-1.f, 1.f,
-
-0.f, 1.f,
-0.f, 0.f,
-1.f, 1.f,
-1.f, 0.f,
-1.f, 1.f,
-0.f, 0.f,
-
-0.f, 1.f,
-1.f, 1.f,
-0.f, 0.f,
-1.f, 0.f,
-0.f, 0.f,
-1.f, 1.f
-};
 
 int main(int argc, char *argv[]) {
    int win_width;
@@ -147,7 +42,7 @@ int main(int argc, char *argv[]) {
 
    glEnable(GL_DEPTH_TEST);
    glDepthFunc(GL_LESS);
-   glEnable(GL_CULL_FACE);
+//   glEnable(GL_CULL_FACE);
 
    printOpenGLInfo();
 
@@ -173,37 +68,28 @@ int main(int argc, char *argv[]) {
    GLuint VBO;
    glGenBuffers(1, &VBO);
    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-   glBufferData(GL_ARRAY_BUFFER, 3 * 6 * 6 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
 
-   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+   Mesh bladeRunnerMesh;
+   bladeRunnerMesh.loadOBJ("./../assets/BladeRunner_blaster/BladeRunner_blaster.obj");
+
+   glBufferData(GL_ARRAY_BUFFER, bladeRunnerMesh.vertices.size() * sizeof(glm::vec3), &bladeRunnerMesh.vertices[0], GL_STATIC_DRAW);
+
+   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *) 0);
    glEnableVertexAttribArray(0);
 
 
    GLuint UVbuffer;
    glGenBuffers(1, &UVbuffer);
    glBindBuffer(GL_ARRAY_BUFFER, UVbuffer);
-   glBufferData(GL_ARRAY_BUFFER, 2 * 6 * 6 * sizeof(GLfloat), uvBufferData, GL_STATIC_DRAW);
-   glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+   glBufferData(GL_ARRAY_BUFFER, bladeRunnerMesh.uvs.size() * sizeof(glm::vec2), &bladeRunnerMesh.uvs[0], GL_STATIC_DRAW);
+   glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid *) 0);
    glEnableVertexAttribArray(1);
    glBindVertexArray(0);
 
    Camera camera;
 
-   glm::vec3 cubePositions[] = {
-   glm::vec3(0.0f, 0.0f, 0.0f),
-   glm::vec3(2.0f, 5.0f, -15.0f),
-   glm::vec3(-1.5f, -2.2f, -2.5f),
-   glm::vec3(-3.8f, -2.0f, -12.3f),
-   glm::vec3(2.4f, -0.4f, -3.5f),
-   glm::vec3(-1.7f, 3.0f, -7.5f),
-   glm::vec3(1.3f, -2.0f, -2.5f),
-   glm::vec3(1.5f, 2.0f, -2.5f),
-   glm::vec3(1.5f, 0.2f, -1.5f),
-   glm::vec3(-1.3f, 1.0f, -1.5f)
-   };
-
    Texture wallTexture;
-   wallTexture.loadTexture("./../assets/wall.bmp");
+   wallTexture.loadTexture("./../assets/BladeRunner_blaster/textures/blaster_albedo.tga");
    glBindTexture(GL_TEXTURE_2D, wallTexture.texture);
 
    InputProcessor inputProcessor = InputProcessor::getInputProcessor();
@@ -231,25 +117,21 @@ int main(int argc, char *argv[]) {
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-      for (int i = 0; i < 10; i++) {
-         glm::mat4 m, v, p, mvp;
-         m = glm::mat4(1.0);
-         v = glm::mat4(1.0);
+      glm::mat4 m, v, p, mvp;
+      m = glm::mat4(1.0);
+      v = glm::mat4(1.0);
 
-         m = glm::translate(m, cubePositions[i]);
-//         m = glm::rotate(m, (GLfloat) glm::radians(glfwGetTime()), glm::vec3(.4f, 0.6f, 0.0f));
-         m = glm::scale(m, glm::vec3(1.0f, 1.0f, 1.0f));
+      m = glm::scale(m, glm::vec3(1.0f, 1.0f, 1.0f));
 
-         v = camera.GetViewMatrix();
+      v = camera.GetViewMatrix();
 
-         p = glm::perspective(glm::radians(45.f), ratio, 0.1f, 100.f);
+      p = glm::perspective(glm::radians(45.f), ratio, 0.1f, 100.f);
 
-         mvp = p * v * m;
-         glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp));
+      mvp = p * v * m;
+      glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp));
 
-         glDrawArrays(GL_TRIANGLES, 0, 108);
+      glDrawArrays(GL_TRIANGLES, 0, bladeRunnerMesh.vertices.size());
 
-      }
       glBindVertexArray(0);
       glfwSwapBuffers(window);
    }
