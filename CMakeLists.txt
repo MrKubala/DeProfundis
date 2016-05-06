@@ -13,7 +13,7 @@ set(SOURCE_FILES
         src/OpenGL.hpp
         src/Texture.cpp src/Texture.h
         src/Camera.cpp src/Camera.h
-        src/InputProcessor.cpp src/InputProcessor.h src/MeshOBJ.cpp src/MeshOBJ.h)
+        src/InputProcessor.cpp src/InputProcessor.h src/Mesh.cpp src/Mesh.h)
 
 add_executable(DeProfundisCMAKE ${SOURCE_FILES})
 

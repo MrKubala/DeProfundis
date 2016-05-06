@@ -2,7 +2,7 @@
 #include <cstring>
 #include <glm/vec2.hpp>
 #include <string>
-#include "MeshOBJ.h"
+#include "Mesh.h"
 
 void Mesh::loadOBJ(const char *path) {
    std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;

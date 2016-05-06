@@ -6,7 +6,7 @@
 #include "Texture.h"
 #include "InputProcessor.h"
 #include "Camera.h"
-#include "MeshOBJ.h"
+#include "Mesh.h"
 
 void printOpenGLInfo() {
    const GLubyte *renderer = glGetString(GL_RENDERER);
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
 
    glEnable(GL_DEPTH_TEST);
    glDepthFunc(GL_LESS);
-//   glEnable(GL_CULL_FACE);
+   glEnable(GL_CULL_FACE);
 
    printOpenGLInfo();
 
@@ -60,10 +60,6 @@ int main(int argc, char *argv[]) {
 
    GLint mvp_location;
    mvp_location = glGetUniformLocation(program.Get(), "MVP");
-
-   GLuint VAO;
-   glGenVertexArrays(1, &VAO);
-   glBindVertexArray(VAO);
 
    GLuint VBO;
    glGenBuffers(1, &VBO);
@@ -107,7 +103,6 @@ int main(int argc, char *argv[]) {
       camera.update(deltaTime);
 
       program.Use();
-      glBindVertexArray(VAO);
 
       glfwGetWindowSize(window, &win_width, &win_height);
       float ratio = win_width / (float) win_height;
