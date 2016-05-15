@@ -2,7 +2,7 @@
 #include <random>
 #include "ProgramArguments.hpp"
 #include "GLFWControls.hpp"
-#include "ShaderProgram.hpp"
+#include "ShaderProgram.h"
 #include "Texture.h"
 #include "InputProcessor.h"
 #include "Camera.h"

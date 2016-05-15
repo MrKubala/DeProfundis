@@ -12,15 +12,12 @@ public:
    std::vector<glm::vec2> uvs;
    std::vector<glm::vec3> normals;
 
-//   float* getVertices(){
-//      float* arrayVertices
-//   }
-
-   Mesh() { };
+   Mesh(const char *path) { loadOBJ(path); }
 
    void loadOBJ(const char *path);
 
 private:
+
 
    FILE *openFile(const char *path);
 

@@ -9,6 +9,7 @@
 class Texture {
 public:
    GLuint texture;
+   Texture(std::string fileName){loadTexture(fileName);}
    void loadTexture(std::string fileName);
 };
 

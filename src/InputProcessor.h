@@ -13,9 +13,9 @@ public:
    bool *inputState;
    double mouseXPos, mouseYPos, mouseLastXPos, mouseLastYPos;
 
-   static InputProcessor &getInputProcessor() {
+   static InputProcessor *getInputProcessor() {
       static InputProcessor inputProcessor;
-      return inputProcessor;
+      return &inputProcessor;
    }
 
    void update();
@@ -25,13 +25,24 @@ public:
    void handleKeyReleased(int key);
 
    void handleMouseMovement(double xPos, double yPos);
-   double getMouseXOffset(){ return mouseXPos - mouseLastXPos;}
-   double getMouseYOffset(){ return mouseLastYPos - mouseYPos ;}
+
+   double getMouseXOffset();
+
+   double getMouseYOffset();
+
+   static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
+
+   static void mouse_button_callback(GLFWwindow *window, int button, int action, int mods);
+
+   static void mouse_scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
+
+   static void mouse_position_callback(GLFWwindow *window, double xpos, double ypos);
 
    ~InputProcessor() { delete[] inputState; }
 
 private:
    int maxInputNumber = GLFW_KEY_LAST + 1;
+
    InputProcessor() : mouseXPos(0), mouseYPos(0), mouseLastXPos(0), mouseLastYPos(0) {
       inputState = new bool[maxInputNumber];
       for (int i = 0; i < maxInputNumber; i++) { inputState[i] = false; }

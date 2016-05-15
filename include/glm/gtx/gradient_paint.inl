@@ -38,11 +38,11 @@ namespace glm
 		tvec2<T, P> const & Center,
 		T const & Radius,
 		tvec2<T, P> const & Focal,
-		tvec2<T, P> const & Position
+		tvec2<T, P> const & position
 	)
 	{
 		tvec2<T, P> F = Focal - Center;
-		tvec2<T, P> D = Position - Focal;
+		tvec2<T, P> D = position - Focal;
 		T Radius2 = pow2(Radius);
 		T Fx2 = pow2(F.x);
 		T Fy2 = pow2(F.y);
@@ -57,10 +57,10 @@ namespace glm
 	(
 		tvec2<T, P> const & Point0,
 		tvec2<T, P> const & Point1,
-		tvec2<T, P> const & Position
+		tvec2<T, P> const & position
 	)
 	{
 		tvec2<T, P> Dist = Point1 - Point0;
-		return (Dist.x * (Position.x - Point0.x) + Dist.y * (Position.y - Point0.y)) / glm::dot(Dist, Dist);
+		return (Dist.x * (position.x - Point0.x) + Dist.y * (position.y - Point0.y)) / glm::dot(Dist, Dist);
 	}
 }//namespace glm
