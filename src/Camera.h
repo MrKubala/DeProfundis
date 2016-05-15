@@ -45,6 +45,9 @@ public:
 
    GLfloat ratio;
 
+   float nearClip = 0.1f;
+   float farClip = 100.f;
+
 
    Camera(GLfloat ratio, glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
           GLfloat yaw = CAMERA_YAW, GLfloat pitch = CAMERA_PITCH)

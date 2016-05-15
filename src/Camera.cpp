@@ -22,7 +22,7 @@ void Camera::update(float deltaTime) {
 }
 
 void Camera::setViewPerspectiveMatrix() {
-   viewPerspectiveMatrix = glm::perspective(glm::radians(zoom), ratio, 0.1f, 100.f) * glm::lookAt(this->position, this->position + this->front, this->up);
+   viewPerspectiveMatrix = glm::perspective(glm::radians(zoom), ratio, nearClip, farClip) * glm::lookAt(this->position, this->position + this->front, this->up);
 
    glUniformMatrix4fv(viewPerspectiveMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(viewPerspectiveMatrix));
 }
