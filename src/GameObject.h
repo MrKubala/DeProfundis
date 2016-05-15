@@ -11,11 +11,12 @@ public:
    glm::vec3 position;
    glm::vec3 rotation;
    glm::vec3 scale;
-   GameObject(Mesh mesh, Texture texture);
+   GameObject(Mesh &mesh, Texture &texture);
    void draw();
 private:
    Mesh mesh;
    Texture texture;
+   GLuint VAO;
    GLint modelMatrixLocation;
    glm::mat4 modelMatrix;
 };

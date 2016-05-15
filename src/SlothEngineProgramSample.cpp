@@ -4,7 +4,14 @@
 
 void SlothEngineProgramSample::create() {
    camera = new Camera(16 / (float)9);
-   blaster = new GameObject(Mesh("./../assets/BladeRunner_blaster/BladeRunner_blaster.obj"), Texture("./../assets/BladeRunner_blaster/textures/blaster_albedo.tga"));
+   camera->farClip = 1000.f;
+   numOfGameObjects = 100;
+   Mesh mesh("./../assets/BladeRunner_blaster/BladeRunner_blaster.obj");
+   Texture texture("./../assets/BladeRunner_blaster/textures/blaster_albedo.tga");
+   for(int i = 0; i < numOfGameObjects; i++){
+      blasters.push_back(GameObject(mesh, texture));
+      blasters.back().position.z = 2 * (i - (numOfGameObjects/2));
+   }
 }
 
 void SlothEngineProgramSample::update(float deltaTime) {
@@ -16,7 +23,9 @@ void SlothEngineProgramSample::render(float deltaTime) {
 
    update(deltaTime);
    camera->update(deltaTime);
-   blaster->draw();
+   for(int i = 0; i < numOfGameObjects; i++){
+      blasters[i].draw();
+   }
 }
 
 

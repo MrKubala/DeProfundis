@@ -14,7 +14,8 @@ public:
 
 private:
    Camera *camera;
-   GameObject *blaster;
+   std::vector<GameObject> blasters;
+   int numOfGameObjects;
 };
 
 

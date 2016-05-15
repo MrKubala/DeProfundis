@@ -1,11 +1,10 @@
 #include "GameObject.h"
 
-GameObject::GameObject(Mesh mesh, Texture texture) : mesh(mesh), texture(texture), scale(glm::vec3(1,1,1)){
-}
-
-void GameObject::draw() {
-   modelMatrixLocation = (*Sloth::shaderProgram).modelMatrixUniformLocation;
-   glBindVertexArray(0);
+GameObject::GameObject(Mesh &passedMesh, Texture &passedTexture) : mesh(passedMesh), texture(passedTexture), scale(glm::vec3(1,1,1)){
+   mesh = passedMesh;
+   texture = passedTexture;
+   glGenVertexArrays(1, &VAO);
+   glBindVertexArray(VAO);
 
    GLuint VBO;
    glGenBuffers(1, &VBO);
@@ -23,8 +22,13 @@ void GameObject::draw() {
    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid *) 0);
    glEnableVertexAttribArray(1);
 
-   texture.loadTexture("./../assets/BladeRunner_blaster/textures/blaster_albedo.tga");
    glBindTexture(GL_TEXTURE_2D, texture.texture);
+
+   glBindVertexArray(0);
+}
+
+void GameObject::draw() {
+   modelMatrixLocation = (*Sloth::shaderProgram).modelMatrixUniformLocation;
 
    modelMatrix = glm::mat4();
    modelMatrix = glm::translate(modelMatrix, position);
@@ -33,9 +37,12 @@ void GameObject::draw() {
    modelMatrix = glm::rotate(modelMatrix, rotation.z, glm::vec3(0,0,1));
    modelMatrix = glm::scale(modelMatrix, scale);
 
+   glBindVertexArray(VAO);
+
    glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
    glDrawArrays(GL_TRIANGLES, 0, mesh.vertices.size());
-   glDisableVertexAttribArray(0);
+
+   glBindVertexArray(0);
 }
 
