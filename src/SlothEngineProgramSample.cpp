@@ -27,6 +27,10 @@ void SlothEngineProgramSample::update(float deltaTime) {
 void SlothEngineProgramSample::render(float deltaTime) {
    glClearColor(0.4f, 0.6f, 0.6f, 1.f);
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   glm::vec4 ambientLightColor(0.4f, 0.6f, 0.6f, 0.0f);
+   float ambientLightIntensity = 0.2f;
+   ambientLightColor *= ambientLightIntensity;
+   glUniform4fv(Sloth::shaderProgram->ambientLightColorUniformLocation, 1, glm::value_ptr(ambientLightColor));
 
    update(deltaTime);
    camera->update(deltaTime);

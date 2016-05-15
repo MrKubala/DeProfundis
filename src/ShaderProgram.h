@@ -53,6 +53,7 @@ public:
 
    GLint modelMatrixUniformLocation;
    GLint viewPerspectiveMatrixUniformLocation;
+   GLint ambientLightColorUniformLocation;
 
 private:
    bool loadCode(GLchar **data, const char *file_name);

@@ -11,7 +11,7 @@ out vec4 color;
 void main() {
 
     vec4 fragColor = texture( myTextureSampler, UV);
-    //fragColor = fragColor * ambientLightColor;
+    fragColor = fragColor * ambientLightColor;
     color = fragColor;
 
 }

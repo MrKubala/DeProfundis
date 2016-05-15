@@ -27,7 +27,6 @@ void ShaderProgram::addShaderWithSources(GLuint shader_type, const char *shader_
 
       glShaderSource(shaders.back()->object, 1, &shader_code, NULL);
 
-      //Kompilacja shadera
       glCompileShader(shaders.back()->object);
 
       GLint shader_status;
@@ -102,7 +101,6 @@ void ShaderProgram::link() {
          GLuint types[6] = {GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER,
                             GL_FRAGMENT_SHADER, GL_COMPUTE_SHADER};
 
-         // Dołączanie shadera do programu
          for (auto const &t : types) {
             for (auto const &shader : shaders) {
                if (shader->type == t) {
@@ -130,6 +128,7 @@ void ShaderProgram::use() {
 
          modelMatrixUniformLocation = glGetUniformLocation(program, "ModelMatrix");
          viewPerspectiveMatrixUniformLocation = glGetUniformLocation(program, "ViewPerspectiveMatrix");
+         ambientLightColorUniformLocation = glGetUniformLocation(program, "ambientLightColor");
          break;
       default:
          std::cerr << "[ShaderProgram::UseProgram] Program does not linked!!!\n";
