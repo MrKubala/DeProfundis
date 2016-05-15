@@ -18,6 +18,6 @@ set(SOURCE_FILES
         src/Mesh.cpp src/Mesh.h
         src/SlothEngineProgramSample.cpp
         src/SlothEngineProgramSample.h src/SlothEngineSample.cpp
-        src/GameObject.cpp src/GameObject.h src/Sloth.cpp src/Sloth.h)
+        src/GameObject.cpp src/GameObject.h src/Sloth.cpp src/Sloth.h src/LightingManager.cpp src/LightingManager.h src/Light.cpp src/Light.h)
 
-add_executable(${PROJECT_NAME}CMAKE ${SOURCE_FILES})
+add_executable(${PROJECT_NAME}Example ${SOURCE_FILES})
