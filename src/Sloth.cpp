@@ -1,3 +1,3 @@
 #include "Sloth.h"
 
-ShaderProgram *Sloth::shaderProgram;
+PhongShader *Sloth::phongShader;

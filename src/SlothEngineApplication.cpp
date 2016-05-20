@@ -9,22 +9,23 @@ SlothEngineApplication &SlothEngineApplication::create(SlothEngineProgramSample 
    SlothEngineApplication &slothEngineApplication = SlothEngineApplication::get();
    slothEngineApplication.slothEngineProgram = slothEngineProgram;
    slothEngineApplication.inputProcessor = InputProcessor::getInputProcessor();
+   Sloth::phongShader = slothEngineApplication.phongShader;
    return slothEngineApplication;
 }
 
 void SlothEngineApplication::start() {
-   initialization();
+   initialize();
 
    while (!glfwWindowShouldClose(window)) {
-      glEnableVertexAttribArray(0);
+      //TODO shader isn't used, problem probably is somewhere here
       calculateDeltaTime();
       showFPS();
       inputProcessor->update();
-
-
-      shaderProgram.use();
       glViewport(0, 0, windowsWidth, windowsHeight);
+      phongShader->bind();
+
       slothEngineProgram.render(deltaTime);
+
       glfwSwapBuffers(window);
 
    }
@@ -33,7 +34,7 @@ void SlothEngineApplication::start() {
    exit(EXIT_SUCCESS);
 }
 
-void SlothEngineApplication::initialization() {
+void SlothEngineApplication::initialize() {
    std::string win_name;
 
    getConfiguration(windowsWidth, windowsHeight, win_name);
@@ -69,13 +70,14 @@ void SlothEngineApplication::initialization() {
    glfwSetScrollCallback(window, inputProcessor->mouse_scroll_callback);
    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-   shaderProgram.addShaderFromFile(GL_VERTEX_SHADER, "./../shaders/vertexShader.glsl");
-   shaderProgram.addShaderFromFile(GL_FRAGMENT_SHADER, "./../shaders/fragmentShader.glsl");
-   shaderProgram.link();
-   Sloth::shaderProgram = &shaderProgram;
+   initializeShaders();
 
    slothEngineProgram.create();
+}
 
+void SlothEngineApplication::initializeShaders(){
+   this->phongShader = new PhongShader("./../shaders/vertexShader.glsl", "./../shaders/fragmentShader.glsl");
+   Sloth::phongShader = this->phongShader;
 }
 
 void SlothEngineApplication::printOpenGLInfo() {

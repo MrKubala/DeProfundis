@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include "OpenGL.hpp"
-#include "ShaderProgram.h"
+#include "ShaderProgramCreator.h"
 #include "SlothEngineProgramSample.h"
 #include "InputProcessor.h"
 
@@ -26,16 +26,18 @@ private:
    SlothEngineApplication() { };
    InputProcessor *inputProcessor;
    SlothEngineProgramSample slothEngineProgram;
-   ShaderProgram shaderProgram;
+   PhongShader *phongShader;
    static float deltaTime;
    static float lastFrameTime;
 
    int framesSinceLastFPS;
    float lastFPSCounterTime;
 
-   void initialization();
+   void initialize();
+   void initializeShaders();
 
    void calculateDeltaTime();
+
    void showFPS();
 
    void printOpenGLInfo();
@@ -46,7 +48,6 @@ private:
       std::cerr << "Error code: " << error << " ; Description: " << description << std::endl;
    }
 };
-
 
 
 #endif //SLOTHENGINE_SLOTHENGINEAPPLICATION_H

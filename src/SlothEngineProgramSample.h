@@ -2,7 +2,7 @@
 #define SLOTHENGINE_SLOTHENGINEPROGRAM_H
 
 
-#include "ShaderProgram.h"
+#include "ShaderProgramCreator.h"
 #include "Camera.h"
 #include "GameObject.h"
 

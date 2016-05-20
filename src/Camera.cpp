@@ -1,7 +1,7 @@
 #include "Camera.h"
 
 void Camera::update(float deltaTime) {
-   ShaderProgram &shaderProgram = *Sloth::shaderProgram;
+   PhongShader &shaderProgram = *Sloth::phongShader;
    viewPerspectiveMatrixUniformLocation = shaderProgram.viewPerspectiveMatrixUniformLocation;
    InputProcessor* inputProcessor = InputProcessor::getInputProcessor();
 

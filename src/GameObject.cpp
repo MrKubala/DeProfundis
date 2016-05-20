@@ -33,7 +33,7 @@ GameObject::GameObject(Mesh &passedMesh, Texture &passedTexture) : mesh(passedMe
 }
 
 void GameObject::draw() {
-   modelMatrixLocation = (*Sloth::shaderProgram).modelMatrixUniformLocation;
+   modelMatrixLocation = (*Sloth::phongShader).modelMatrixUniformLocation;
 
    modelMatrix = glm::mat4();
    modelMatrix = glm::translate(modelMatrix, position);

@@ -6,8 +6,14 @@
 #define SLOTHENGINE_LIGHTING_H
 
 
-class Light {
+#include "LightsTypeEnum.h"
 
+class Light {
+public:
+   const int lightID;
+   const LightType lightType;
+private:
+   static int counter;
 };
 
 
