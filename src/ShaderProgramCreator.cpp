@@ -31,7 +31,11 @@ void ShaderProgramCreator::addShaderFromFile(GLuint shader_type, const char *fil
          GLint shader_status;
          glGetShaderiv(shaders.back()->object, GL_COMPILE_STATUS, &shader_status);
          if (shader_status != GL_TRUE) {
-            std::cerr << "[ShaderProgramCreator::addShaderFromFile] Can not compile shader object!!!\n";
+            std::cerr << "[ShaderProgramCreator::addShaderFromFile] Can not compile shader " + std::string(file_name) + "\n";
+            GLchar error[1024];
+            GLsizei length;
+            glGetShaderInfoLog(shaders.back()->object, 1024, &length, error);
+            std::cout<<error<<std::endl;
             error_flag = true;
          }
 

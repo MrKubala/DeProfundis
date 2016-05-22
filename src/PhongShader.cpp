@@ -1,9 +1,10 @@
+#include <stdexcept>
+#include <iostream>
 #include "PhongShader.h"
 void PhongShader::bind() {
-   glUseProgram(this->shaderProgram);
-   this->modelMatrixUniformLocation = glGetUniformLocation(this->shaderProgram, "ModelMatrix");
-   this->viewPerspectiveMatrixUniformLocation = glGetUniformLocation(this->shaderProgram, "ViewPerspectiveMatrix");
-   this->ambientLightColorUniformLocation = glGetUniformLocation(this->shaderProgram, "ambientLightColor");
+   glUseProgram(shaderProgram);
+   modelMatrixUniformLocation = glGetUniformLocation(shaderProgram, "modelMatrix");
+   viewPerspectiveMatrixUniformLocation = glGetUniformLocation(shaderProgram, "viewPerspectiveMatrix");
 }
 
 PhongShader::PhongShader(const char *vertex_shader, const char *fragment_shader) {
@@ -13,4 +14,14 @@ PhongShader::PhongShader(const char *vertex_shader, const char *fragment_shader)
    shaderProgram = 0;
    shaderProgramCreator.link(shaderProgram);
 }
+
+GLint PhongShader::getUniformLocation(const GLchar *uniformName){
+   GLint uniform = glGetUniformLocation(shaderProgram, uniformName);
+   if(uniform == -1)
+      std::cerr << "Program uniform not found: " + std::string(uniformName) + "\n";
+
+   return uniform;
+}
+
+
 

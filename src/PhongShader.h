@@ -10,9 +10,11 @@ public:
 
    GLint modelMatrixUniformLocation;
    GLint viewPerspectiveMatrixUniformLocation;
-   GLint ambientLightColorUniformLocation;
 
    void bind();
+
+   GLint getUniformLocation(const GLchar* uniformName);
+
 
    PhongShader(const char *vertex_shader, const char *fragment_shader);
 };

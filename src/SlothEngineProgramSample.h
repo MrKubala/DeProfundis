@@ -5,6 +5,7 @@
 #include "ShaderProgramCreator.h"
 #include "Camera.h"
 #include "GameObject.h"
+#include "LightingManager.h"
 
 class SlothEngineProgramSample {
 public:
@@ -17,6 +18,16 @@ private:
    std::vector<GameObject> blasters;
    std::vector<GameObject> commandos;
    int numOfGameObjects;
+   LightingManager lightingManager;
+   Light directionalLight;
+   Light light1;
+   Light light2;
+   GameObject *cube;
+   float timeSinceBegining = 0;
+   float lightsMinRadius = 9;
+
+   float specularPower = 35;
+   float specularIntensity = 0.35;
 };
 
 

@@ -1,7 +1,3 @@
-//
-// Created by Kuba on 2016-05-03.
-//
-
 #ifndef DEPROFUNDIS_INPUTPROCESSOR_H
 #define DEPROFUNDIS_INPUTPROCESSOR_H
 

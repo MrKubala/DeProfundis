@@ -16,6 +16,7 @@ public:
 private:
    Mesh mesh;
    Texture texture;
+   float materialShininess = 0;
    GLuint VAO;
    GLint modelMatrixLocation;
    glm::mat4 modelMatrix;

@@ -1,20 +1,22 @@
-//
-// Created by Kuba on 2016-05-15.
-//
-
 #ifndef SLOTHENGINE_LIGHTING_H
 #define SLOTHENGINE_LIGHTING_H
 
+#include <glm/vec4.hpp>
+#include <glm/vec3.hpp>
 
-#include "LightsTypeEnum.h"
+struct Light {
+   int ID;
+   static int entitiesCounter;
+   glm::vec4 position;
+   glm::vec3 color;
+   float attenuation;
+   float coneAngle;
+   glm::vec3 coneDirection;
 
-class Light {
-public:
-   const int lightID;
-   const LightType lightType;
-private:
-   static int counter;
+
+   Light():ID(entitiesCounter), color(glm::vec3(1.0f, 1.0f, 1.0f)), attenuation(0.4f), coneAngle(23.1415){
+      entitiesCounter++;
+   }
 };
-
 
 #endif //SLOTHENGINE_LIGHTING_H

@@ -1,8 +1,8 @@
 #include "Camera.h"
 
 void Camera::update(float deltaTime) {
-   PhongShader &shaderProgram = *Sloth::phongShader;
-   viewPerspectiveMatrixUniformLocation = shaderProgram.viewPerspectiveMatrixUniformLocation;
+   PhongShader &phongShader = *Sloth::phongShader;
+   viewPerspectiveMatrixUniformLocation = phongShader.viewPerspectiveMatrixUniformLocation;
    InputProcessor* inputProcessor = InputProcessor::getInputProcessor();
 
    if(inputProcessor->inputState[GLFW_KEY_W])
@@ -18,6 +18,7 @@ void Camera::update(float deltaTime) {
    GLfloat yOff = (GLfloat)inputProcessor->getMouseYOffset();
    ProcessMouseMovement(xOff, yOff);
 
+   glUniform3fv(Sloth::phongShader->getUniformLocation("cameraPosition"), 1, glm::value_ptr(position));
    setViewPerspectiveMatrix();
 }
 
