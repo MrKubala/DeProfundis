@@ -6,6 +6,9 @@
 class Sloth {
 public:
    static PhongShader* phongShader;
+   static int *windowsWidth;
+   static int *windowsHeight;
+   static bool freeMouseMode;
 };
 
 

@@ -17,7 +17,8 @@ void SlothEngineApplication::start() {
    initialize();
 
    while (!glfwWindowShouldClose(window)) {
-      //TODO shader isn't used, problem probably is somewhere here
+      setInputMode();
+
       calculateDeltaTime();
       showFPS();
       inputProcessor->update();
@@ -52,7 +53,7 @@ void SlothEngineApplication::initialize() {
    }
 
    glfwMakeContextCurrent(window);
-   glfwSwapInterval(1);
+   glfwSwapInterval(0);
 
    glewExperimental = GL_TRUE;
    glewInit();
@@ -68,14 +69,14 @@ void SlothEngineApplication::initialize() {
    glfwSetCursorPosCallback(window, inputProcessor->mouse_position_callback);
    glfwSetMouseButtonCallback(window, inputProcessor->mouse_button_callback);
    glfwSetScrollCallback(window, inputProcessor->mouse_scroll_callback);
-   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
    initializeShaders();
 
    slothEngineProgram.create();
 }
 
-void SlothEngineApplication::initializeShaders(){
+void SlothEngineApplication::initializeShaders() {
    this->phongShader = new PhongShader("./../shaders/vertexShader.glsl", "./../shaders/fragmentShader.glsl");
    Sloth::phongShader = this->phongShader;
 }
@@ -91,6 +92,8 @@ void SlothEngineApplication::getConfiguration(int &win_width, int &win_height, s
    win_width = 960;
    win_height = 540;
    win_name = "SlothEngineOBJViewer";
+   Sloth::windowsWidth = &win_width;
+   Sloth::windowsHeight = &win_height;
 }
 
 void SlothEngineApplication::calculateDeltaTime() {
@@ -102,14 +105,25 @@ float SlothEngineApplication::deltaTime = 0;
 float SlothEngineApplication::lastFrameTime = 0;
 
 void SlothEngineApplication::showFPS() {
-   if (shouldPrintFPS) {
-      framesSinceLastFPS++;
-      double currentTime = glfwGetTime();
-      if (currentTime - lastFPSCounterTime >= 1.0) {
+   framesSinceLastFPS++;
+   double currentTime = glfwGetTime();
+   if (currentTime - lastCounterTime >= 1.0) {
+      if (shouldPrintFPS)
          printf("%f ms/frame  ||  %d FPS \n", 1000.0 / double(framesSinceLastFPS), framesSinceLastFPS);
-         framesSinceLastFPS = 0;
-         lastFPSCounterTime = (float) currentTime;
-      }
+
+      framesSinceLastFPS = 0;
+      lastCounterTime = (float) currentTime;
+   }
+
+}
+
+void SlothEngineApplication::setInputMode() {
+   double currentTime = glfwGetTime();
+   if (currentTime - lastCounterTime >= 1.0) {
+      if (Sloth::freeMouseMode)glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+      else glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
    }
 }
+
+
 

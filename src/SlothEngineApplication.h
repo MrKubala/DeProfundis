@@ -31,12 +31,13 @@ private:
    static float lastFrameTime;
 
    int framesSinceLastFPS;
-   float lastFPSCounterTime;
+   float lastCounterTime;
 
    void initialize();
    void initializeShaders();
 
    void calculateDeltaTime();
+   void setInputMode();
 
    void showFPS();
 

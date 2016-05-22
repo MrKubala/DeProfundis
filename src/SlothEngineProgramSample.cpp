@@ -1,6 +1,7 @@
 #include "SlothEngineProgramSample.h"
 
 void SlothEngineProgramSample::create() {
+   atb.init();
    camera = new Camera(16 / (float)9);
    camera->farClip = 1000.f;
    camera->position = glm::vec3(6, 4, 0);
@@ -23,6 +24,11 @@ void SlothEngineProgramSample::create() {
    Mesh cubeMesh("./../assets/Cube/cube.obj");
    cube = new GameObject(cubeMesh, commandoTexture);
 
+   Mesh knightMesh("./../assets/knight/knight.obj");
+   Texture knightTexture("./../assets/knight/knight.jpg");
+   knights.push_back(GameObject(knightMesh, knightTexture));
+   knights.back().position.y = 5;
+
    directionalLight.position = glm::vec4(600.0f, 100.0f, -30.0f, 0.0f);
    directionalLight.color = glm::vec3(1.0f, 0.90f, 0.7f);
    directionalLight.color *= 0.6f;
@@ -33,15 +39,16 @@ void SlothEngineProgramSample::create() {
    light1.attenuation = 0.01f;
 
    lightingManager.addLight(&light1);
+   handleATB();
 }
 
 void SlothEngineProgramSample::update(float deltaTime) {
-   timeSinceBegining += deltaTime;
-   float x = glm::sin(timeSinceBegining) * lightsMinRadius;
-   float z = glm::cos(timeSinceBegining) * lightsMinRadius;
+   timeSinceBeginning += deltaTime;
+   float x = glm::sin(timeSinceBeginning) * lightsMinRadius;
+   float z = glm::cos(timeSinceBeginning) * lightsMinRadius;
    light1.position.x = x;
    light1.position.z = z;
-   float r = glm::sin(timeSinceBegining * 9);
+   float r = glm::sin(timeSinceBeginning * 9);
    r = glm::abs(r);
    light1.color.r = r;
 }
@@ -64,13 +71,25 @@ void SlothEngineProgramSample::render(float deltaTime) {
       commandos[i].draw();
    }
 
+   for(int i = 0; i< knights.size(); i++){
+      knights[i].draw();
+   }
+
    for(int i = 0; i < lightingManager.getNumberOfLights(); i++){
       cube->position.x = lightingManager.lights[i]->position.x;
       cube->position.y = lightingManager.lights[i]->position.y;
       cube->position.z = lightingManager.lights[i]->position.z;
       cube->draw();
    }
+
+   atb.draw();
 }
+
+void SlothEngineProgramSample::handleATB() {
+   TwAddVarRW(atb.bar, "Position", TW_TYPE_VECTOR3F, (void*)&camera->position, NULL);
+}
+
+
 
 
 

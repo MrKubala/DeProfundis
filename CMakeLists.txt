@@ -6,7 +6,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 include_directories(include)
 link_directories(lib)
-link_libraries(SOIL glfw3dll glew32 glew32.dll opengl32)
+link_libraries(AntTweakBar SOIL glfw3dll glew32 glew32.dll opengl32)
 
 set(SOURCE_FILES
         src/SlothEngineApplication.cpp src/SlothEngineApplication.h
@@ -23,6 +23,6 @@ set(SOURCE_FILES
         src/LightsTypeEnum.h
         src/LightingManager.cpp src/LightingManager.h
         src/Light.h
-        src/OpenGL.hpp src/Light.cpp)
+        src/OpenGL.hpp src/Light.cpp src/ATB.cpp src/ATB.h)
 
 add_executable(${PROJECT_NAME}Example ${SOURCE_FILES})
