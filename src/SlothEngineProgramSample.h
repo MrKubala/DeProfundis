@@ -14,7 +14,7 @@ public:
    void create();
    void render(float deltaTime);
    void update(float deltaTime);
-   void handleATB();
+   void setMainATBBar();
 
 private:
    ATB atb;
@@ -24,7 +24,9 @@ private:
    std::vector<GameObject> commandos;
    std::vector<GameObject> knights;
    int numOfGameObjects;
-   LightingManager lightingManager;
+
+   glm::vec3 ambientLightColor;
+   LightingManager *lightingManager;
    Light directionalLight;
    Light light1;
    Light light2;

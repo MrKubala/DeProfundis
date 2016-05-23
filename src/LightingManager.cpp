@@ -1,5 +1,10 @@
 #include "LightingManager.h"
 
+LightingManager &LightingManager::get() {
+   static LightingManager lightingManager;
+   return lightingManager;
+}
+
 void LightingManager::processLights() {
    PhongShader& shaderProgram = *(Sloth::phongShader);
 
@@ -20,13 +25,18 @@ int LightingManager::getNumberOfLights() {
 
 void LightingManager::addLight(Light *light) {
    lights.push_back(light);
-   numberOfLights++;
+   numberOfLights = lights.size();
 }
 
 void LightingManager::removeLight(Light &lightToRemove) {
+   removeLight(lightToRemove.ID);
+}
+
+void LightingManager::removeLight(int lightToRemoveID) {
    for (std::vector<Light *>::iterator it = lights.begin(); it != lights.end(); it++) {
-      if ((*it)->ID == lightToRemove.ID) {
+      if ((*it)->ID == lightToRemoveID) {
          lights.erase(it);
+         numberOfLights = lights.size();
          break;
       }
    }
@@ -35,4 +45,3 @@ void LightingManager::removeLight(Light &lightToRemove) {
 std::string LightingManager::getUniformLightName(std::string lightDataMember, int index) {
    return LIGHT_DATA_UNIFORM_PREFIX + "[" + std::to_string(index) + "]." + lightDataMember;
 }
-

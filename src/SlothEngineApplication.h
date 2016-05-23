@@ -16,7 +16,7 @@ public:
 
    bool shouldPrintFPS = true;
 
-   static SlothEngineApplication &get();;
+   static SlothEngineApplication &get();
 
    static SlothEngineApplication &create(SlothEngineProgramSample &slothEngineProgram);
 

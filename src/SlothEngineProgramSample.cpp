@@ -29,17 +29,20 @@ void SlothEngineProgramSample::create() {
    knights.push_back(GameObject(knightMesh, knightTexture));
    knights.back().position.y = 5;
 
+   lightingManager = &LightingManager::get();
    directionalLight.position = glm::vec4(600.0f, 100.0f, -30.0f, 0.0f);
    directionalLight.color = glm::vec3(1.0f, 0.90f, 0.7f);
    directionalLight.color *= 0.6f;
-   lightingManager.addLight(&directionalLight);
+   lightingManager->addLight(&directionalLight);
+   atb.addLightBar(&directionalLight);
 
    light1.position = glm::vec4(6.0f, 1.0f, 0.0f, 1.0f);
    light1.color = glm::vec3(0.0f, 0.0f, 0.0f);
    light1.attenuation = 0.01f;
 
-   lightingManager.addLight(&light1);
-   handleATB();
+   lightingManager->addLight(&light1);
+   atb.addLightBar(&light1);
+   setMainATBBar();
 }
 
 void SlothEngineProgramSample::update(float deltaTime) {
@@ -57,13 +60,11 @@ void SlothEngineProgramSample::render(float deltaTime) {
    update(deltaTime);
    glClearColor(0.2f, 0.2f, 0.2f, 1.f);
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-   glm::vec3 ambientLightColor(0.1f, 0.1f, 0.1f);
-   float ambientLightIntensity = 0.05f;
-   ambientLightColor *= ambientLightIntensity;
+
    glUniform3fv(Sloth::phongShader->getUniformLocation("ambientLight"), 1, glm::value_ptr(ambientLightColor));
    glUniform1f(Sloth::phongShader->getUniformLocation("materialSpecularPower"), specularPower);
    glUniform1f(Sloth::phongShader->getUniformLocation("materialSpecularIntensity"), specularIntensity);
-   lightingManager.processLights();
+   lightingManager->processLights();
    camera->update(deltaTime);
 
    for(int i = 0; i < numOfGameObjects; i++){
@@ -75,18 +76,19 @@ void SlothEngineProgramSample::render(float deltaTime) {
       knights[i].draw();
    }
 
-   for(int i = 0; i < lightingManager.getNumberOfLights(); i++){
-      cube->position.x = lightingManager.lights[i]->position.x;
-      cube->position.y = lightingManager.lights[i]->position.y;
-      cube->position.z = lightingManager.lights[i]->position.z;
+   for(int i = 0; i < lightingManager->getNumberOfLights(); i++){
+      cube->position.x = lightingManager->lights[i]->position.x;
+      cube->position.y = lightingManager->lights[i]->position.y;
+      cube->position.z = lightingManager->lights[i]->position.z;
       cube->draw();
    }
 
    atb.draw();
 }
 
-void SlothEngineProgramSample::handleATB() {
-   TwAddVarRW(atb.bar, "Position", TW_TYPE_VECTOR3F, (void*)&camera->position, NULL);
+void SlothEngineProgramSample::setMainATBBar() {
+   TwAddVarRW(atb.mainBar, "Position", TW_TYPE_VECTOR3F, (void*)&camera->position, NULL);
+   TwAddVarRW(atb.mainBar, "Ambient Color", TW_TYPE_COLOR3F, (void*)&ambientLightColor, NULL);
 }
 
 
