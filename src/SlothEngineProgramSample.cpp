@@ -87,8 +87,11 @@ void SlothEngineProgramSample::render(float deltaTime) {
 }
 
 void SlothEngineProgramSample::setMainATBBar() {
-   TwAddVarRW(atb.mainBar, "Position", TW_TYPE_VECTOR3F, (void*)&camera->position, NULL);
    TwAddVarRW(atb.mainBar, "Ambient Color", TW_TYPE_COLOR3F, (void*)&ambientLightColor, NULL);
+   TwAddVarRW(atb.mainBar, "Specular Power", TW_TYPE_FLOAT, (void*)&specularPower, "min=0 step=0.01");
+   TwAddVarRW(atb.mainBar, "Specular Intensity", TW_TYPE_FLOAT, (void*)&specularIntensity, "min=0 step=0.01");
+   TwAddSeparator(atb.mainBar, "Camera", NULL);
+   TwAddVarRW(atb.mainBar, "Position", TW_TYPE_VECTOR3F, (void*)&camera->position, NULL);
 }
 
 
