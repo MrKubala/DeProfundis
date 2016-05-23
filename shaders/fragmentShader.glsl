@@ -1,5 +1,5 @@
 #version 330
-#define MAX_LIGHTS 10
+#define MAX_LIGHTS 100
 
 uniform sampler2D myTextureSampler;
 uniform vec3 cameraPosition;

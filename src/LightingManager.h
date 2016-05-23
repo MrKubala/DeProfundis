@@ -11,7 +11,7 @@
 class LightingManager {
 public:
    std::vector<Light *> lights;
-   int getNumberOfLights();
+   int numberOfLights = 0;
    void addLight(Light *light);
    void removeLight(int lightToRemoveID);
    void removeLight(Light &lightToRemove);
@@ -19,7 +19,6 @@ public:
    static LightingManager &get();
 private:
    LightingManager(){};
-   int numberOfLights = 0;
    std::string LIGHT_DATA_UNIFORM_PREFIX = "lightsData";
    std::string getUniformLightName(std::string lightDataMember, int index);
 };

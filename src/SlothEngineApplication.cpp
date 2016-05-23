@@ -10,6 +10,7 @@ SlothEngineApplication &SlothEngineApplication::create(SlothEngineProgramSample 
    slothEngineApplication.slothEngineProgram = slothEngineProgram;
    slothEngineApplication.inputProcessor = InputProcessor::getInputProcessor();
    Sloth::phongShader = slothEngineApplication.phongShader;
+   Sloth::framesPerSecond = &slothEngineApplication.framesSinceLastFPS;
    return slothEngineApplication;
 }
 

@@ -3,6 +3,14 @@
 TwType TW_TYPE_VECTOR3F;
 TwType TW_TYPE_VECTOR4F;
 
+
+
+ATB &ATB::getInstanse() {
+   static ATB atb;
+   return atb;
+}
+
+
 void ATB::init() {
    TwInit(TW_OPENGL, NULL);
    TwWindowSize(*Sloth::windowsWidth, *Sloth::windowsHeight);
@@ -13,16 +21,17 @@ void ATB::init() {
       {"z", TW_TYPE_FLOAT, offsetof(glm::vec3, z), "step=0.01"}
    };
    TwStructMember Vector4fMembers[] = {
-      {"x", TW_TYPE_FLOAT, offsetof(glm::vec3, x), "step=0.01"},
-      {"y", TW_TYPE_FLOAT, offsetof(glm::vec3, y), "step=0.01"},
-      {"z", TW_TYPE_FLOAT, offsetof(glm::vec3, z), "step=0.01"},
-      {"w", TW_TYPE_FLOAT, offsetof(glm::vec3, z), "step=0.01"}
+      {"x", TW_TYPE_FLOAT, offsetof(glm::vec4, x), "step=0.01"},
+      {"y", TW_TYPE_FLOAT, offsetof(glm::vec4, y), "step=0.01"},
+      {"z", TW_TYPE_FLOAT, offsetof(glm::vec4, z), "step=0.01"},
+      {"w", TW_TYPE_FLOAT, offsetof(glm::vec4, w), "step=1 min=0 max=1"}
    };
 
    TW_TYPE_VECTOR3F = TwDefineStruct("Vector3f", Vector3fMembers, 3, sizeof(glm::vec3), NULL, NULL);
    TW_TYPE_VECTOR4F = TwDefineStruct("Vector4f", Vector4fMembers, 4, sizeof(glm::vec4), NULL, NULL);
 
    mainBar = TwNewBar("SlothEngine");
+   TwDefine("SlothEngine size='300 250' valueswidth='135'");
 }
 
 void ATB::draw() {
@@ -40,7 +49,7 @@ void TW_CALL removeLightBar(void *clientData) {
 void ATB::addLightBar(Light *light) {
    std::string barName = LIGHT_BOX_PREFIX + std::to_string(light->ID);
    TwBar *bar = TwNewBar(barName.c_str());
-   TwDefine((" " + barName + " size='270 145' valueswidth='135'").c_str());
+   TwDefine((" " + barName + " size='270 180' valueswidth='135'").c_str());
    lightBars.push_back(bar);
 
    TwAddVarRW(lightBars.back(), "Position", TW_TYPE_VECTOR4F, (void*)&light->position, NULL);

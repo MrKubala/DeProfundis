@@ -21,7 +21,7 @@ const std::string LIGHT_BOX_PREFIX = "Light_";
 
 class ATB {
 public:
-   ATB() { }
+   static ATB &getInstanse();
 
    void init();
 
@@ -31,6 +31,9 @@ public:
    std::vector<TwBar *> lightBars;
 
    void addLightBar(Light *light);
+
+private:
+   ATB() { }
 };
 
 #endif //SLOTHENGINE_ANB_H

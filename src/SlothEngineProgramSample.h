@@ -17,7 +17,7 @@ public:
    void setMainATBBar();
 
 private:
-   ATB atb;
+   ATB *atb;
 
 
    Camera *camera;
@@ -29,8 +29,8 @@ private:
    glm::vec3 ambientLightColor;
    LightingManager *lightingManager;
    Light directionalLight;
-   Light light1;
-   Light light2;
+   std::vector<Light> lightsObjects;
+   Light dynamicLight;
    GameObject *cube;
    float timeSinceBeginning = 0;
    float lightsMinRadius = 9;

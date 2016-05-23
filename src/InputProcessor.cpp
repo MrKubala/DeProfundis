@@ -42,11 +42,13 @@ void InputProcessor::key_callback(GLFWwindow *window, int key, int scancode, int
       glfwSetWindowShouldClose(window, GL_TRUE);
    }
    else if (action == GLFW_PRESS) {
+      TwKeyPressed(key, mods);
       inputProcessor->handleKeyPressed(key);
    }
    else if (action == GLFW_RELEASE) {
       inputProcessor->handleKeyReleased(key);
    }
+
 }
 
 void InputProcessor::mouse_button_callback(GLFWwindow *window, int button, int action, int mods) {
