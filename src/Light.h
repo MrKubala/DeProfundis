@@ -14,7 +14,7 @@ struct Light {
    glm::vec3 coneDirection;
 
 
-   Light():ID(entitiesCounter), color(glm::vec3(1.0f, 1.0f, 1.0f)), attenuation(0.4f), coneAngle(23.1415){
+   Light():ID(entitiesCounter), position(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f)), color(glm::vec3(1.0f, 1.0f, 1.0f)), attenuation(0.4f), coneAngle(23.1415){
       entitiesCounter++;
    }
 };
