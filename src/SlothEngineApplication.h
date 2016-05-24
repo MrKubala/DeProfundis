@@ -18,14 +18,14 @@ public:
 
    static SlothEngineApplication &get();
 
-   static SlothEngineApplication &create(SlothEngineProgramSample &slothEngineProgram);
+   static SlothEngineApplication &create(SlothEngineProgramSample *slothEngineProgram);
 
    void start();
 
 private:
    SlothEngineApplication() { };
    InputProcessor *inputProcessor;
-   SlothEngineProgramSample slothEngineProgram;
+   SlothEngineProgramSample *slothEngineProgram;
    PhongShader *phongShader;
    static float deltaTime;
    static float lastFrameTime;

@@ -5,7 +5,7 @@ SlothEngineApplication &SlothEngineApplication::get() {
    return slothEngineApplication;
 }
 
-SlothEngineApplication &SlothEngineApplication::create(SlothEngineProgramSample &slothEngineProgram) {
+SlothEngineApplication &SlothEngineApplication::create(SlothEngineProgramSample *slothEngineProgram) {
    SlothEngineApplication &slothEngineApplication = SlothEngineApplication::get();
    slothEngineApplication.slothEngineProgram = slothEngineProgram;
    slothEngineApplication.inputProcessor = InputProcessor::getInputProcessor();
@@ -26,7 +26,7 @@ void SlothEngineApplication::start() {
       glViewport(0, 0, windowsWidth, windowsHeight);
       phongShader->bind();
 
-      slothEngineProgram.render(deltaTime);
+      slothEngineProgram->render(deltaTime);
 
       glfwSwapBuffers(window);
 
@@ -54,7 +54,7 @@ void SlothEngineApplication::initialize() {
    }
 
    glfwMakeContextCurrent(window);
-   glfwSwapInterval(0);
+   glfwSwapInterval(1);
 
    glewExperimental = GL_TRUE;
    glewInit();
@@ -74,7 +74,7 @@ void SlothEngineApplication::initialize() {
 
    initializeShaders();
 
-   slothEngineProgram.create();
+   slothEngineProgram->create();
 }
 
 void SlothEngineApplication::initializeShaders() {

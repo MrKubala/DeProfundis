@@ -29,8 +29,8 @@ private:
    glm::vec3 ambientLightColor;
    LightingManager *lightingManager;
    Light directionalLight;
-   std::vector<Light> lightsObjects;
    Light dynamicLight;
+   std::vector<Light> lightsObjects;
    GameObject *cube;
    float timeSinceBeginning = 0;
    float lightsMinRadius = 9;

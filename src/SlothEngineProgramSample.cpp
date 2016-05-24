@@ -48,20 +48,6 @@ void SlothEngineProgramSample::create() {
 
    ///////////////////////
 
-   Sloth::lightsObjects->push_back(Light());
-   LightingManager::get().addLight(&Sloth::lightsObjects->back());
-   ATB::getInstanse().addLightBar(&Sloth::lightsObjects->back());
-
-
-   Sloth::lightsObjects->push_back(Light());
-   LightingManager::get().addLight(&Sloth::lightsObjects->back());
-   ATB::getInstanse().addLightBar(&Sloth::lightsObjects->back());
-
-
-   Sloth::lightsObjects->push_back(Light());
-   LightingManager::get().addLight(&Sloth::lightsObjects->back());
-   ATB::getInstanse().addLightBar(&Sloth::lightsObjects->back());
-
 
    ///////////////////////
 }
