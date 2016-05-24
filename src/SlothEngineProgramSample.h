@@ -2,6 +2,7 @@
 #define SLOTHENGINE_SLOTHENGINEPROGRAM_H
 
 
+#include <list>
 #include "ShaderProgramCreator.h"
 #include "Camera.h"
 #include "GameObject.h"
@@ -30,7 +31,7 @@ private:
    LightingManager *lightingManager;
    Light directionalLight;
    Light dynamicLight;
-   std::vector<Light> lightsObjects;
+   std::list<Light> lightsObjects;
    GameObject *cube;
    float timeSinceBeginning = 0;
    float lightsMinRadius = 9;

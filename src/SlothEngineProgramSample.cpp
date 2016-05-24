@@ -32,6 +32,7 @@ void SlothEngineProgramSample::create() {
    knights.back().position.y = 5;
 
    lightingManager = &LightingManager::get();
+
    directionalLight.position = glm::vec4(600.0f, 100.0f, -30.0f, 0.0f);
    directionalLight.color = glm::vec3(1.0f, 0.90f, 0.7f);
    directionalLight.color *= 0.6f;
@@ -41,15 +42,10 @@ void SlothEngineProgramSample::create() {
    dynamicLight.position = glm::vec4(6.0f, 1.0f, 0.0f, 1.0f);
    dynamicLight.color = glm::vec3(0.0f, 0.0f, 0.0f);
    dynamicLight.attenuation = 0.01f;
-
    lightingManager->addLight(&dynamicLight);
    atb->addLightBar(&dynamicLight);
+
    setMainATBBar();
-
-   ///////////////////////
-
-
-   ///////////////////////
 }
 
 void SlothEngineProgramSample::update(float deltaTime) {
@@ -95,7 +91,7 @@ void SlothEngineProgramSample::render(float deltaTime) {
 
 void TW_CALL addMoreLightsTWCall(void *data){
    Sloth::lightsObjects->push_back(Light());
-   LightingManager::get().addLight(&Sloth::lightsObjects->back());
+   LightingManager::get().addLight(&(Sloth::lightsObjects->back()));
    ATB::getInstanse().addLightBar(&Sloth::lightsObjects->back());
 }
 

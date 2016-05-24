@@ -1,6 +1,7 @@
 #ifndef SLOTHENGINE_SLOTH_H
 #define SLOTHENGINE_SLOTH_H
 
+#include <list>
 #include "PhongShader.h"
 #include "Light.h"
 
@@ -11,7 +12,7 @@ public:
    static int *windowsHeight;
    static bool freeMouseMode;
    static int *framesPerSecond;
-   static std::vector<Light> *lightsObjects;
+   static std::list<Light> *lightsObjects;
 };
 
 
