@@ -37,6 +37,7 @@ private:
    void initializeShaders();
 
    void calculateDeltaTime();
+   void setDisplayMode();
    void setInputMode();
 
    void showFPS();

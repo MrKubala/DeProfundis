@@ -11,6 +11,7 @@ public:
    static int *windowsWidth;
    static int *windowsHeight;
    static bool freeMouseMode;
+   static bool displayAsWireframe;
    static int *framesPerSecond;
    static std::list<Light> *lightsObjects;
 };

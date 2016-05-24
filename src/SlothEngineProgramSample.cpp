@@ -105,6 +105,8 @@ void SlothEngineProgramSample::setMainATBBar() {
    TwAddSeparator(atb->mainBar, NULL, NULL);
    TwAddVarRW(atb->mainBar, "Num of lights", TW_TYPE_INT32, (void*)&lightingManager->numberOfLights, NULL);
    TwAddButton(atb->mainBar, "MOOOREE LIGHTS", addMoreLightsTWCall, NULL, NULL);
+   TwAddSeparator(atb->mainBar, NULL, NULL);
+   TwAddVarRW(atb->mainBar, "Display as wireframe", TW_TYPE_BOOL32, (void*)&Sloth::displayAsWireframe, NULL);
 
 }
 

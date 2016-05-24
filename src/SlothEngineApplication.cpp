@@ -19,7 +19,7 @@ void SlothEngineApplication::start() {
 
    while (!glfwWindowShouldClose(window)) {
       setInputMode();
-
+      setDisplayMode();
       calculateDeltaTime();
       showFPS();
       inputProcessor->update();
@@ -54,7 +54,7 @@ void SlothEngineApplication::initialize() {
    }
 
    glfwMakeContextCurrent(window);
-   glfwSwapInterval(1);
+   glfwSwapInterval(0);
 
    glewExperimental = GL_TRUE;
    glewInit();
@@ -116,6 +116,13 @@ void SlothEngineApplication::showFPS() {
       lastCounterTime = (float) currentTime;
    }
 
+}
+
+void SlothEngineApplication::setDisplayMode() {
+   if(Sloth::displayAsWireframe)
+      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+   else
+      glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 }
 
 void SlothEngineApplication::setInputMode() {
