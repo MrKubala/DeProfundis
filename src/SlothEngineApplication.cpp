@@ -1,3 +1,4 @@
+#include <ctime>
 #include "SlothEngineApplication.h"
 
 SlothEngineApplication &SlothEngineApplication::get() {
@@ -37,8 +38,9 @@ void SlothEngineApplication::start() {
 }
 
 void SlothEngineApplication::initialize() {
-   std::string win_name;
+   srand(time(NULL));
 
+   std::string win_name;
    getConfiguration(windowsWidth, windowsHeight, win_name);
 
    window = nullptr;

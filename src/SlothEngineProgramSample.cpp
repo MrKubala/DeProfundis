@@ -89,8 +89,21 @@ void SlothEngineProgramSample::render(float deltaTime) {
    atb->draw();
 }
 
+float random() {
+   return ((float)rand() /  RAND_MAX);
+}
+
 void TW_CALL addMoreLightsTWCall(void *data){
    Sloth::lightsObjects->push_back(Light());
+
+   Sloth::lightsObjects->back().position.x = (random() * 20) - 10;
+   Sloth::lightsObjects->back().position.y = (random() * 20) - 10;
+   Sloth::lightsObjects->back().position.z = (random() * 20) - 10;
+
+   Sloth::lightsObjects->back().color.r = random();
+   Sloth::lightsObjects->back().color.g = random();
+   Sloth::lightsObjects->back().color.b = random();
+
    LightingManager::get().addLight(&(Sloth::lightsObjects->back()));
    ATB::getInstanse().addLightBar(&Sloth::lightsObjects->back());
 }
@@ -109,9 +122,3 @@ void SlothEngineProgramSample::setMainATBBar() {
    TwAddVarRW(atb->mainBar, "Display as wireframe", TW_TYPE_BOOL32, (void*)&Sloth::displayAsWireframe, NULL);
 
 }
-
-
-
-
-
-

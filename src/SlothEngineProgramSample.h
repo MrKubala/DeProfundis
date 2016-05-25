@@ -20,7 +20,6 @@ public:
 private:
    ATB *atb;
 
-
    Camera *camera;
    std::vector<GameObject> blasters;
    std::vector<GameObject> commandos;
@@ -38,6 +37,7 @@ private:
 
    float specularPower = 35;
    float specularIntensity = 0.25;
+
 };
 
 
