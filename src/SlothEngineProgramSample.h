@@ -19,6 +19,7 @@ public:
 
 private:
    ATB *atb;
+   bool canToggleMainBar;
 
    InputProcessor *inputProcessor;
 

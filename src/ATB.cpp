@@ -31,7 +31,10 @@ void ATB::init() {
    TW_TYPE_VECTOR4F = TwDefineStruct("Vector4f", Vector4fMembers, 4, sizeof(glm::vec4), NULL, NULL);
 
    mainBar = TwNewBar("SlothEngine");
-   TwDefine("SlothEngine size='300 250' valueswidth='135'");
+   std::string position = "position='" + std::to_string(*Sloth::windowsWidth - mainBarWidth - mainBarXMargin)
+                           + " " + std::to_string(mainBarYMargin) + "'";
+   std::string size = "size='" + std::to_string(mainBarWidth) + " " + std::to_string(mainBarHeight) + "'";
+   TwDefine(("SlothEngine " + position + " " + size + "valueswidth='135'").c_str());
 }
 
 void ATB::draw() {
@@ -82,6 +85,19 @@ void ATB::showAllBars() {
       TwSetParam(twBar, NULL, "visible", TW_PARAM_CSTRING, 1, "true");
    }
 }
+
+void ATB::toggleMainBarVisibility() {
+//   char visible[8];
+   int visible;
+   TwGetParam(mainBar, NULL, "visible", TW_PARAM_INT32, 1, &visible);
+   if(visible == 1){
+      TwSetParam(mainBar, NULL, "visible", TW_PARAM_CSTRING, 1, "false");
+   } else {
+      TwSetParam(mainBar, NULL, "visible", TW_PARAM_CSTRING, 1, "true");
+   }
+}
+
+
 
 
 

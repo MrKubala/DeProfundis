@@ -58,6 +58,13 @@ void SlothEngineProgramSample::update(float deltaTime) {
    if(inputProcessor->inputState[GLFW_KEY_EQUAL]){
       atb->showAllBars();
    }
+   if(!inputProcessor->inputState[GLFW_KEY_1]){
+      canToggleMainBar = true;
+   }
+   if( canToggleMainBar && inputProcessor->inputState[GLFW_KEY_1]){
+      atb->toggleMainBarVisibility();
+      canToggleMainBar = false;
+   }
 
 
    timeSinceBeginning += deltaTime;

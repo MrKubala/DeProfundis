@@ -28,7 +28,13 @@ public:
    void draw();
 
    TwBar *mainBar;
+   int mainBarWidth = 300;
+   int mainBarHeight = 250;
+   int mainBarXMargin = 15;
+   int mainBarYMargin = 15;
    std::vector<TwBar *> lightBars;
+
+   void toggleMainBarVisibility();
 
    void hideAllBars();
    void showAllBars();
