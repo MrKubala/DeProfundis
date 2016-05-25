@@ -30,6 +30,9 @@ public:
    TwBar *mainBar;
    std::vector<TwBar *> lightBars;
 
+   void hideAllBars();
+   void showAllBars();
+
    void addLightBar(Light *light);
 
 private:

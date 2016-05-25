@@ -44,6 +44,14 @@ void TW_CALL removeLightBar(void *clientData) {
    TwBar *barToDelete = TwGetBarByName(barName.c_str());
    TwDeleteBar( barToDelete);
    LightingManager::get().removeLight(data.lightID);
+
+
+   for (std::vector<TwBar *>::iterator it = data.lightBars->begin(); it != data.lightBars->end(); it++) {
+      if (*it == barToDelete) {
+         data.lightBars->erase(it);
+         break;
+      }
+   }
 }
 
 void ATB::addLightBar(Light *light) {
@@ -60,3 +68,21 @@ void ATB::addLightBar(Light *light) {
    TwAddSeparator(lightBars.back(), NULL, NULL);
    TwAddButton(lightBars.back(), "REMOVE LIGHT", removeLightBar, (void*)new RemoveLightBarStruct(&lightBars, light->ID), NULL);
 }
+
+void ATB::hideAllBars() {
+   TwSetParam(mainBar, NULL, "visible", TW_PARAM_CSTRING, 1, "false");
+   for(TwBar *twBar : lightBars){
+      TwSetParam(twBar, NULL, "visible", TW_PARAM_CSTRING, 1, "false");
+   }
+}
+
+void ATB::showAllBars() {
+   TwSetParam(mainBar, NULL, "visible", TW_PARAM_CSTRING, 1, "true");
+   for(TwBar *twBar : lightBars){
+      TwSetParam(twBar, NULL, "visible", TW_PARAM_CSTRING, 1, "true");
+   }
+}
+
+
+
+

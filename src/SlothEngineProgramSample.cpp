@@ -3,6 +3,9 @@
 void SlothEngineProgramSample::create() {
    atb = &ATB::getInstanse();
    atb->init();
+
+   inputProcessor = InputProcessor::getInputProcessor();
+
    Sloth::lightsObjects = &lightsObjects;
    camera = new Camera(16 / (float)9);
    camera->farClip = 1000.f;
@@ -49,6 +52,14 @@ void SlothEngineProgramSample::create() {
 }
 
 void SlothEngineProgramSample::update(float deltaTime) {
+   if(inputProcessor->inputState[GLFW_KEY_MINUS]){
+      atb->hideAllBars();
+   }
+   if(inputProcessor->inputState[GLFW_KEY_EQUAL]){
+      atb->showAllBars();
+   }
+
+
    timeSinceBeginning += deltaTime;
    float x = glm::sin(timeSinceBeginning) * lightsMinRadius;
    float z = glm::cos(timeSinceBeginning) * lightsMinRadius;

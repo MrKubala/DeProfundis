@@ -37,7 +37,7 @@ public:
    ~InputProcessor() { delete[] inputState; }
 
 private:
-   int maxInputNumber = GLFW_KEY_LAST + 1;
+   int maxInputNumber = GLFW_KEY_LAST;
 
    InputProcessor() : mouseXPos(0), mouseYPos(0), mouseLastXPos(0), mouseLastYPos(0) {
       inputState = new bool[maxInputNumber];

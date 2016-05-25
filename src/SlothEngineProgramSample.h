@@ -20,6 +20,8 @@ public:
 private:
    ATB *atb;
 
+   InputProcessor *inputProcessor;
+
    Camera *camera;
    std::vector<GameObject> blasters;
    std::vector<GameObject> commandos;
