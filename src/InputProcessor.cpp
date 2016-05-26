@@ -8,7 +8,9 @@ void InputProcessor::update() {
 }
 
 void InputProcessor::handleKeyPressed(int key) {
-   if (key == GLFW_KEY_GRAVE_ACCENT && Sloth::freeMouseMode) Sloth::freeMouseMode = false;
+   if (key == GLFW_KEY_GRAVE_ACCENT && Sloth::freeMouseMode) {
+      Sloth::freeMouseMode = false;
+   }
    else if (key == GLFW_KEY_GRAVE_ACCENT && !Sloth::freeMouseMode) Sloth::freeMouseMode = true;
 
    this->inputState[key] = true;
@@ -64,8 +66,11 @@ void InputProcessor::mouse_scroll_callback(GLFWwindow *window, double xoffset, d
 void InputProcessor::mouse_position_callback(GLFWwindow *window, double xpos, double ypos) {
    if (Sloth::freeMouseMode) {
       TwMouseMotion(xpos, ypos);
-   }else{
-      InputProcessor *inputProcessor = InputProcessor::getInputProcessor();
-      inputProcessor->handleMouseMovement(xpos, ypos);
+      InputProcessor::getInputProcessor()->mouseLastXPos = xpos;
+      InputProcessor::getInputProcessor()->mouseLastYPos = ypos;
+      InputProcessor::getInputProcessor()->mouseXPos = xpos;
+      InputProcessor::getInputProcessor()->mouseYPos = ypos;
+   } else {
+      InputProcessor::getInputProcessor()->handleMouseMovement(xpos, ypos);
    }
 }
