@@ -24,7 +24,6 @@
 
 #define TW_VERSION  116 // Version Mmm : M=Major mm=minor (e.g., 102 is version 1.02)
 
-
 #ifdef  __cplusplus
 #   if defined(_MSC_VER)
 #       pragma warning(push)

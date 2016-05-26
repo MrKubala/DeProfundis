@@ -10,8 +10,8 @@
 #include "Sloth.h"
 
 
-const GLfloat CAMERA_YAW = -90.0f;
-const GLfloat CAMERA_PITCH = 0.0f;
+const GLfloat CAMERA_YAW = -90.f;
+const GLfloat CAMERA_PITCH = 0.f;
 const GLfloat CAMERA_SPEED = 3.0f;
 const GLfloat CAMERA_SENSITIVTY = 0.25f;
 const GLfloat CAMERA_ZOOM = 45.0f;
@@ -94,7 +94,6 @@ public:
          if (this->pitch < -89.0f)
             this->pitch = -89.0f;
       }
-
 
       this->updateCameraVectors();
    }

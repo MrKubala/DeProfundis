@@ -56,7 +56,7 @@ void SlothEngineApplication::initialize() {
    }
 
    glfwMakeContextCurrent(window);
-   glfwSwapInterval(0);
+   glfwSwapInterval(1);
 
    glewExperimental = GL_TRUE;
    glewInit();
@@ -92,8 +92,8 @@ void SlothEngineApplication::printOpenGLInfo() {
 }
 
 void SlothEngineApplication::getConfiguration(int &win_width, int &win_height, std::string &win_name) {
-   win_width = 960;
-   win_height = 540;
+   win_width = 1600;
+   win_height = 900;
    win_name = "SlothEngineOBJViewer";
    Sloth::windowsWidth = &win_width;
    Sloth::windowsHeight = &win_height;
