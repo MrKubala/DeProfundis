@@ -13,6 +13,9 @@ void SlothEngineProgramSample::create() {
    camera->farClip = 1000.f;
    camera->position = glm::vec3(0, 1, 5);
    camera->front = glm::vec3(.0, .0, .0);
+
+   modelScale = glm::vec3(1.0f, 1.0f, 1.0f);
+
 #ifdef MANY_OBJECTS_DEMO
    numOfGameObjects = 6;
    Mesh blasterMesh("./../assets/blade.runner.blaster/mesh.obj");
@@ -81,7 +84,7 @@ void SlothEngineProgramSample::update(float deltaTime) {
    if (!inputProcessor->inputState[GLFW_KEY_1]) {
       canToggleMainBar = true;
    }
-   if (canToggleMainBar && inputProcessor->inputState[GLFW_KEY_1]) {
+   if (canToggleMainBar && inputProcessor->inputState[GLFW_KEY_F1]) {
       atb->toggleMainBarVisibility();
       canToggleMainBar = false;
    }
@@ -118,15 +121,27 @@ void SlothEngineProgramSample::render(float deltaTime) {
 #else
    switch (m_currentMesh) {
       case CUBE:
+         cubeModel->position = modelPosition;
+         cubeModel->rotation = modelRotation;
+         cubeModel->scale = modelScale;
          cubeModel->draw();
          break;
       case COMMANDO:
+         commandoModel->position = modelPosition;
+         commandoModel->rotation = modelRotation;
+         commandoModel->scale = modelScale;
          commandoModel->draw();
          break;
       case BLASTER:
+         blasterModel->position = modelPosition;
+         blasterModel->rotation = modelRotation;
+         blasterModel->scale = modelScale;
          blasterModel->draw();
          break;
       case KNIGHT:
+         knightModel->position = modelPosition;
+         knightModel->rotation = modelRotation;
+         knightModel->scale = modelScale;
          knightModel->draw();
          break;
    }
@@ -177,11 +192,17 @@ void SlothEngineProgramSample::setMainATBBar() {
    TwAddSeparator(atb->mainBar, NULL, NULL);
    TwAddVarRW(atb->mainBar, "Display as wireframe", TW_TYPE_BOOL32, (void *) &Sloth::displayAsWireframe, NULL);
    TwAddSeparator(atb->mainBar, NULL, NULL);
+
    TwEnumVal Meshes[] = {{CUBE,     "Companion cube"},
                          {COMMANDO, "Republic Commando"},
                          {BLASTER,  "Deckards blaster"},
                          {KNIGHT,   "Common fantasy knight"}};
    TwType MeshTwType = TwDefineEnum("MeshType", Meshes, 4);
-   TwAddVarRW(atb->mainBar, "Mesh", MeshTwType, &m_currentMesh, NULL);
+   TwAddVarRW(atb->mainBar, "Model", MeshTwType, &m_currentMesh, NULL);
+   TwAddVarRW(atb->mainBar, "Model position", TW_TYPE_VECTOR3F, (void *) &modelPosition, NULL);
+   TwAddVarRW(atb->mainBar, "Model rotation", TW_TYPE_VECTOR3F, (void *) &modelRotation, NULL);
+   TwAddVarRW(atb->mainBar, "Model scale", TW_TYPE_VECTOR3F, (void *) &modelScale, NULL);
+
+
 }
 

@@ -39,9 +39,11 @@ private:
 #endif
    MESH_TYPE m_currentMesh = CUBE;
 
-   void loadObj();
-
    glm::vec3 ambientLightColor;
+   glm::vec3 modelScale;
+   glm::vec3 modelPosition;
+   glm::vec3 modelRotation;
+
    LightingManager *lightingManager;
    Light directionalLight;
    Light dynamicLight;
