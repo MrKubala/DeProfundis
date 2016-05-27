@@ -1,5 +1,5 @@
-#ifndef DEPROFUNDIS_CAMERA_H
-#define DEPROFUNDIS_CAMERA_H
+#ifndef SLOTHENGINE_CAMERA_H
+#define SLOTHENGINE_CAMERA_H
 
 
 #include <vector>
@@ -68,7 +68,7 @@ public:
 
    void update(float deltaTime);
 
-   void ProcessKeyboard(Camera_Movement direction, GLfloat deltaTime) {
+   void processKeyboard(Camera_Movement direction, GLfloat deltaTime) {
       GLfloat velocity = this->movementSpeed * deltaTime;
       if (direction == FORWARD)
          this->position += this->front * velocity;
@@ -81,7 +81,7 @@ public:
    }
 
 
-   void ProcessMouseMovement(GLfloat xoffset, GLfloat yoffset, GLboolean constrainPitch = true) {
+   void processMouseMovement(GLfloat xoffset, GLfloat yoffset, GLboolean constrainPitch = true) {
       xoffset *= this->mouseSensitivity;
       yoffset *= this->mouseSensitivity;
 
@@ -94,12 +94,10 @@ public:
          if (this->pitch < -89.0f)
             this->pitch = -89.0f;
       }
-
-      this->updateCameraVectors();
    }
 
 
-   void ProcessMouseScroll(GLfloat yoffset) {
+   void processMouseScroll(GLfloat yoffset) {
       if (this->zoom >= 1.0f && this->zoom <= 45.0f)
          this->zoom -= yoffset;
       if (this->zoom <= 1.0f)
@@ -113,9 +111,9 @@ private:
    void updateCameraVectors() {
 
       glm::vec3 front;
-      front.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
-      front.y = sin(glm::radians(this->pitch));
-      front.z = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
+      front.x = (float)(cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch)));
+      front.y = (float)sin(glm::radians(this->pitch));
+      front.z = (float)(sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch)));
       this->front = glm::normalize(front);
       this->right = glm::normalize(glm::cross(this->front, this->worldUp));
       this->up = glm::normalize(glm::cross(this->right, this->front));
@@ -123,4 +121,4 @@ private:
 
 };
 
-#endif //DEPROFUNDIS_CAMERA_H
+#endif //SLOTHENGINE_CAMERA_H

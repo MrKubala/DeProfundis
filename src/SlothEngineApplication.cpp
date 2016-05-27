@@ -19,7 +19,6 @@ void SlothEngineApplication::start() {
    initialize();
 
    while (!glfwWindowShouldClose(window)) {
-      setInputMode();
       setDisplayMode();
       calculateDeltaTime();
       showFPS();
@@ -126,14 +125,3 @@ void SlothEngineApplication::setDisplayMode() {
    else
       glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 }
-
-void SlothEngineApplication::setInputMode() {
-   double currentTime = glfwGetTime();
-   if (currentTime - lastCounterTime >= 1.0) {
-      if (Sloth::freeMouseMode)glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-      else glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-   }
-}
-
-
-

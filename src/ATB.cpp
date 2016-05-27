@@ -5,7 +5,7 @@ TwType TW_TYPE_VECTOR4F;
 
 
 
-ATB &ATB::getInstanse() {
+ATB &ATB::getInstance() {
    static ATB atb;
    return atb;
 }
@@ -34,7 +34,7 @@ void ATB::init() {
    std::string position = "position='" + std::to_string(*Sloth::windowsWidth - mainBarWidth - mainBarXMargin)
                            + " " + std::to_string(mainBarYMargin) + "'";
    std::string size = "size='" + std::to_string(mainBarWidth) + " " + std::to_string(mainBarHeight) + "'";
-   TwDefine(("SlothEngine " + position + " " + size + "valueswidth='135'").c_str());
+   TwDefine(("SlothEngine " + position + " " + size + " valueswidth=180").c_str());
 }
 
 void ATB::draw() {
@@ -60,7 +60,7 @@ void TW_CALL removeLightBar(void *clientData) {
 void ATB::addLightBar(Light *light) {
    std::string barName = LIGHT_BOX_PREFIX + std::to_string(light->ID);
    TwBar *bar = TwNewBar(barName.c_str());
-   TwDefine((" " + barName + " size='270 160' valueswidth=120 ").c_str());
+   TwDefine((" " + barName + " size='270 160' valueswidth=140 ").c_str());
    lightBars.push_back(bar);
 
    TwAddVarRW(lightBars.back(), "Position", TW_TYPE_VECTOR4F, (void*)&light->position, NULL);

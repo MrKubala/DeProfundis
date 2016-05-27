@@ -10,7 +10,7 @@ public:
    static PhongShader *phongShader;
    static int *windowsWidth;
    static int *windowsHeight;
-   static bool freeMouseMode;
+   static bool cameraRotation;
    static bool displayAsWireframe;
    static int *framesPerSecond;
    static std::list<Light> *lightsObjects;

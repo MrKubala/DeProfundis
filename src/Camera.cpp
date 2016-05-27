@@ -3,20 +3,23 @@
 void Camera::update(float deltaTime) {
    PhongShader &phongShader = *Sloth::phongShader;
    viewPerspectiveMatrixUniformLocation = phongShader.viewPerspectiveMatrixUniformLocation;
-   InputProcessor* inputProcessor = InputProcessor::getInputProcessor();
+   InputProcessor *inputProcessor = InputProcessor::getInputProcessor();
 
-   if(inputProcessor->inputState[GLFW_KEY_W])
-      ProcessKeyboard(FORWARD, deltaTime);
-   if(inputProcessor->inputState[GLFW_KEY_S])
-      ProcessKeyboard(BACKWARD, deltaTime);
-   if(inputProcessor->inputState[GLFW_KEY_A])
-      ProcessKeyboard(LEFT, deltaTime);
-   if(inputProcessor->inputState[GLFW_KEY_D])
-      ProcessKeyboard(RIGHT, deltaTime);
+   if (inputProcessor->keyboardKeysState[GLFW_KEY_W])
+      processKeyboard(FORWARD, deltaTime);
+   if (inputProcessor->keyboardKeysState[GLFW_KEY_S])
+      processKeyboard(BACKWARD, deltaTime);
+   if (inputProcessor->keyboardKeysState[GLFW_KEY_A])
+      processKeyboard(LEFT, deltaTime);
+   if (inputProcessor->keyboardKeysState[GLFW_KEY_D])
+      processKeyboard(RIGHT, deltaTime);
 
-   GLfloat xOff = (GLfloat)inputProcessor->getMouseXOffset();
-   GLfloat yOff = (GLfloat)inputProcessor->getMouseYOffset();
-   ProcessMouseMovement(xOff, yOff);
+   if (Sloth::cameraRotation) {
+      GLfloat xOff = (GLfloat) inputProcessor->getMouseXOffset();
+      GLfloat yOff = (GLfloat) inputProcessor->getMouseYOffset();
+      processMouseMovement(xOff, yOff);
+   }
+   updateCameraVectors();
 
    glUniform3fv(Sloth::phongShader->getUniformLocation("cameraPosition"), 1, glm::value_ptr(position));
    setViewPerspectiveMatrix();

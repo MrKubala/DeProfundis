@@ -8,16 +8,16 @@ void InputProcessor::update() {
 }
 
 void InputProcessor::handleKeyPressed(int key) {
-   if (key == GLFW_KEY_GRAVE_ACCENT && Sloth::freeMouseMode) {
-      Sloth::freeMouseMode = false;
+   if (key == GLFW_KEY_GRAVE_ACCENT && Sloth::cameraRotation) {
+      Sloth::cameraRotation = false;
    }
-   else if (key == GLFW_KEY_GRAVE_ACCENT && !Sloth::freeMouseMode) Sloth::freeMouseMode = true;
+   else if (key == GLFW_KEY_GRAVE_ACCENT && !Sloth::cameraRotation) Sloth::cameraRotation = true;
 
-   this->inputState[key] = true;
+   this->keyboardKeysState[key] = true;
 }
 
 void InputProcessor::handleKeyReleased(int key) {
-   this->inputState[key] = false;
+   this->keyboardKeysState[key] = false;
 }
 
 void InputProcessor::handleMouseMovement(double xPos, double yPos) {
@@ -57,6 +57,14 @@ void InputProcessor::mouse_button_callback(GLFWwindow *window, int button, int a
    TwMouseButtonID btn = (button == GLFW_MOUSE_BUTTON_LEFT) ? TW_MOUSE_LEFT : TW_MOUSE_RIGHT;
    TwMouseAction ma = (action == GLFW_PRESS) ? TW_MOUSE_PRESSED : TW_MOUSE_RELEASED;
    TwMouseButton(ma, btn);
+
+   InputProcessor *inputProcessor = InputProcessor::getInputProcessor();
+   if (action == GLFW_PRESS) {
+      inputProcessor->handleMouseButtonPressed(button);
+   }
+   else if (action == GLFW_RELEASE) {
+      inputProcessor->handleMouseButtonReleased(button);
+   }
 }
 
 void InputProcessor::mouse_scroll_callback(GLFWwindow *window, double xoffset, double yoffset) {
@@ -64,13 +72,19 @@ void InputProcessor::mouse_scroll_callback(GLFWwindow *window, double xoffset, d
 }
 
 void InputProcessor::mouse_position_callback(GLFWwindow *window, double xpos, double ypos) {
-   if (Sloth::freeMouseMode) {
-      TwMouseMotion(xpos, ypos);
-      InputProcessor::getInputProcessor()->mouseLastXPos = xpos;
-      InputProcessor::getInputProcessor()->mouseLastYPos = ypos;
-      InputProcessor::getInputProcessor()->mouseXPos = xpos;
-      InputProcessor::getInputProcessor()->mouseYPos = ypos;
-   } else {
-      InputProcessor::getInputProcessor()->handleMouseMovement(xpos, ypos);
-   }
+
+   TwMouseMotion(xpos, ypos);
+   InputProcessor::getInputProcessor()->handleMouseMovement(xpos, ypos);
+
 }
+
+void InputProcessor::handleMouseButtonPressed(int button) {
+   this->mouseButtonsState[button] = true;
+}
+
+void InputProcessor::handleMouseButtonReleased(int button) {
+   this->mouseButtonsState[button] = false;
+}
+
+
+

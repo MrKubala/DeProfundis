@@ -21,15 +21,15 @@ const std::string LIGHT_BOX_PREFIX = "Light_";
 
 class ATB {
 public:
-   static ATB &getInstanse();
+   static ATB &getInstance();
 
    void init();
 
    void draw();
 
    TwBar *mainBar;
-   int mainBarWidth = 300;
-   int mainBarHeight = 250;
+   int mainBarWidth = 350;
+   int mainBarHeight = 450;
    int mainBarXMargin = 15;
    int mainBarYMargin = 15;
    std::vector<TwBar *> lightBars;

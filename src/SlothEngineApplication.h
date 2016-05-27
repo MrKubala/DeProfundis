@@ -38,7 +38,6 @@ private:
 
    void calculateDeltaTime();
    void setDisplayMode();
-   void setInputMode();
 
    void showFPS();
 

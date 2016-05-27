@@ -6,7 +6,8 @@
 
 class InputProcessor {
 public:
-   bool *inputState;
+   bool *keyboardKeysState;
+   bool *mouseButtonsState;
    double mouseXPos, mouseYPos, mouseLastXPos, mouseLastYPos;
 
    static InputProcessor *getInputProcessor() {
@@ -19,6 +20,10 @@ public:
    void handleKeyPressed(int key);
 
    void handleKeyReleased(int key);
+
+   void handleMouseButtonPressed(int button);
+
+   void handleMouseButtonReleased(int button);
 
    void handleMouseMovement(double xPos, double yPos);
 
@@ -34,14 +39,17 @@ public:
 
    static void mouse_position_callback(GLFWwindow *window, double xpos, double ypos);
 
-   ~InputProcessor() { delete[] inputState; }
+   ~InputProcessor() { delete[] keyboardKeysState; }
 
 private:
-   int maxInputNumber = GLFW_KEY_LAST;
+   int maxKeyboardKeys = GLFW_KEY_LAST;
+   int maxMouseButtons = GLFW_MOUSE_BUTTON_LAST;
 
    InputProcessor() : mouseXPos(0), mouseYPos(0), mouseLastXPos(0), mouseLastYPos(0) {
-      inputState = new bool[maxInputNumber];
-      for (int i = 0; i < maxInputNumber; i++) { inputState[i] = false; }
+      keyboardKeysState = new bool[maxKeyboardKeys];
+      mouseButtonsState = new bool[maxMouseButtons];
+      for (int i = 0; i < maxKeyboardKeys; i++) { keyboardKeysState[i] = false; }
+      for (int i = 0; i < maxMouseButtons; i++) { mouseButtonsState[i] = false; }
    }
 
    void resetMouseOffset();

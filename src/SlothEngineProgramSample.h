@@ -44,6 +44,10 @@ private:
    glm::vec3 modelPosition;
    glm::vec3 modelRotation;
 
+   float freeRotationSpeed = 0.01f;
+
+   glm::vec3 clearColor = glm::vec3(.1f, .1f, .1f);
+
    LightingManager *lightingManager;
    Light directionalLight;
    Light dynamicLight;
@@ -54,7 +58,6 @@ private:
 
    float specularPower = 35;
    float specularIntensity = 0.25;
-
 };
 
 

@@ -3,7 +3,7 @@
 #include "SlothEngineProgramSample.h"
 
 void SlothEngineProgramSample::create() {
-   atb = &ATB::getInstanse();
+   atb = &ATB::getInstance();
    atb->init();
 
    inputProcessor = InputProcessor::getInputProcessor();
@@ -75,18 +75,31 @@ void SlothEngineProgramSample::create() {
 }
 
 void SlothEngineProgramSample::update(float deltaTime) {
-   if (inputProcessor->inputState[GLFW_KEY_MINUS]) {
+   if (inputProcessor->keyboardKeysState[GLFW_KEY_MINUS]) {
       atb->hideAllBars();
    }
-   if (inputProcessor->inputState[GLFW_KEY_EQUAL]) {
+   if (inputProcessor->keyboardKeysState[GLFW_KEY_EQUAL]) {
       atb->showAllBars();
    }
-   if (!inputProcessor->inputState[GLFW_KEY_1]) {
+   if (!inputProcessor->keyboardKeysState[GLFW_KEY_F1]) {
       canToggleMainBar = true;
    }
-   if (canToggleMainBar && inputProcessor->inputState[GLFW_KEY_F1]) {
+   if (canToggleMainBar && inputProcessor->keyboardKeysState[GLFW_KEY_F1]) {
       atb->toggleMainBarVisibility();
       canToggleMainBar = false;
+   }
+   //Camera rotation
+   Sloth::cameraRotation = inputProcessor->mouseButtonsState[GLFW_MOUSE_BUTTON_RIGHT];
+
+   //Object rotation
+   if (inputProcessor->keyboardKeysState[GLFW_KEY_X]) {
+      modelRotation.x += inputProcessor->getMouseYOffset() * freeRotationSpeed;
+   }
+   if (inputProcessor->keyboardKeysState[GLFW_KEY_Y]) {
+      modelRotation.y += inputProcessor->getMouseYOffset() * freeRotationSpeed;
+   }
+   if (inputProcessor->keyboardKeysState[GLFW_KEY_Z]) {
+      modelRotation.z += inputProcessor->getMouseYOffset() * freeRotationSpeed;
    }
 
    timeSinceBeginning += deltaTime;
@@ -101,7 +114,7 @@ void SlothEngineProgramSample::update(float deltaTime) {
 
 void SlothEngineProgramSample::render(float deltaTime) {
    update(deltaTime);
-   glClearColor(0.2f, 0.2f, 0.2f, 1.f);
+   glClearColor(clearColor.r, clearColor.g, clearColor.b, 1.0f);
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
    glUniform3fv(Sloth::phongShader->getUniformLocation("ambientLight"), 1, glm::value_ptr(ambientLightColor));
@@ -176,13 +189,14 @@ void TW_CALL addMoreLightsTWCall(void *data) {
    Sloth::lightsObjects->back().color.b = random();
 
    LightingManager::get().addLight(&(Sloth::lightsObjects->back()));
-   ATB::getInstanse().addLightBar(&Sloth::lightsObjects->back());
+   ATB::getInstance().addLightBar(&Sloth::lightsObjects->back());
 }
 
 void SlothEngineProgramSample::setMainATBBar() {
    TwAddVarRW(atb->mainBar, "Position", TW_TYPE_VECTOR3F, (void *) &camera->position, NULL);
    TwAddVarRW(atb->mainBar, "Direction", TW_TYPE_DIR3F, (void *) &camera->front, NULL);
    TwAddSeparator(atb->mainBar, NULL, NULL);
+   TwAddVarRW(atb->mainBar, "Clear Color", TW_TYPE_COLOR3F, (void *) &clearColor, NULL);
    TwAddVarRW(atb->mainBar, "Ambient Color", TW_TYPE_COLOR3F, (void *) &ambientLightColor, NULL);
    TwAddVarRW(atb->mainBar, "Specular Power", TW_TYPE_FLOAT, (void *) &specularPower, "min=0 step=0.01");
    TwAddVarRW(atb->mainBar, "Specular Intensity", TW_TYPE_FLOAT, (void *) &specularIntensity, "min=0 step=0.01");
