@@ -36,12 +36,6 @@ vec3 ApplyLight(Light light, vec3 surfaceColor, vec3 normal, vec3 surfacePos, ve
         surfaceToLight = normalize(light.position.xyz - surfacePos);
         float distanceToLight = length(light.position.xyz - surfacePos);
         attenuation = 1.0 / (1.0 + (light.attenuation * pow(distanceToLight, 2)));
-
-        //cone restrictions (affects attenuation)
-        float lightToSurfaceAngle = degrees(acos(dot(-surfaceToLight, normalize(light.coneDirection))));
-        if(lightToSurfaceAngle > light.coneAngle){
-            attenuation = 0.0;
-        }
     }
 
     //diffuse
@@ -67,6 +61,7 @@ void main() {
    vec3 surfaceToCamera = normalize(cameraPosition - surfacePos);
 
    vec3 linearColor = vec3(0);
+
    //ambient
    linearColor += surfaceColor.rgb * ambientLight;
 
