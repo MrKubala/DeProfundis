@@ -64,17 +64,14 @@ void Mesh::processOBJData(std::vector<unsigned int> vertexIndices,
 
    for( unsigned int i=0; i<vertexIndices.size(); i++ ){
 
-      // Get the indices of its attributes
       unsigned int vertexIndex = vertexIndices[i];
       unsigned int uvIndex = uvIndices[i];
       unsigned int normalIndex = normalIndices[i];
 
-      // Get the attributes thanks to the index
       glm::vec3 vertex = temp_vertices[ vertexIndex-1 ];
       glm::vec2 uv = temp_uvs[ uvIndex-1 ];
       glm::vec3 normal = temp_normals[ normalIndex-1 ];
 
-      // Put the attributes in buffers
       vertices.push_back(vertex);
       uvs     .push_back(uv);
       normals .push_back(normal);
