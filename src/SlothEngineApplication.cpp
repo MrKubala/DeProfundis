@@ -79,7 +79,7 @@ void SlothEngineApplication::initialize() {
 }
 
 void SlothEngineApplication::initializeShaders() {
-   this->phongShader = new PhongShader("./../shaders/vertexShader.glsl", "./../shaders/fragmentShader.glsl");
+   this->phongShader = new Shader("./../shaders/vertexShader.glsl", "./../shaders/fragmentShader.glsl");
    Sloth::phongShader = this->phongShader;
 }
 

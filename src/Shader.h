@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include "ShaderProgramCreator.h"
 
-class PhongShader {
+class Shader {
 public:
    GLuint shaderProgram;
 
@@ -16,7 +16,7 @@ public:
    GLint getUniformLocation(const GLchar* uniformName);
 
 
-   PhongShader(const char *vertex_shader, const char *fragment_shader);
+   Shader(const char *vertex_shader, const char *fragment_shader);
 };
 
 

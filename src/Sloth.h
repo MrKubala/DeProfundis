@@ -2,18 +2,16 @@
 #define SLOTHENGINE_SLOTH_H
 
 #include <list>
-#include "PhongShader.h"
-#include "Light.h"
+#include "Shader.h"
 
 class Sloth {
 public:
-   static PhongShader *phongShader;
+   static Shader *phongShader;
    static int *windowsWidth;
    static int *windowsHeight;
    static bool cameraRotation;
    static bool displayAsWireframe;
    static int *framesPerSecond;
-   static std::list<Light> *lightsObjects;
 };
 
 

@@ -26,7 +26,7 @@ private:
    SlothEngineApplication() { };
    InputProcessor *inputProcessor;
    SlothEngineProgramSample *slothEngineProgram;
-   PhongShader *phongShader;
+   Shader *phongShader;
    static float deltaTime;
    static float lastFrameTime;
 

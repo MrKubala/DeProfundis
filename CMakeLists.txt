@@ -19,10 +19,6 @@ set(SOURCE_FILES
         src/SlothEngineProgramSample.h src/SlothEngineSample.cpp
         src/GameObject.cpp src/GameObject.h
         src/Sloth.cpp src/Sloth.h
-        src/PhongShader.cpp src/PhongShader.h
-        src/LightsTypeEnum.h
-        src/LightingManager.cpp src/LightingManager.h
-        src/Light.h
-        src/OpenGL.hpp src/Light.cpp src/ATB.cpp src/ATB.h)
-
+        src/Shader.cpp src/Shader.h
+        src/OpenGL.hpp)
 add_executable(${PROJECT_NAME}Example ${SOURCE_FILES})
