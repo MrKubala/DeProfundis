@@ -21,7 +21,7 @@ void SlothEngineProgramSample::create() {
    }
 }
 
-void SlothEngineProgramSample::update(float deltaTime) {=
+void SlothEngineProgramSample::update(float deltaTime) {
    Sloth::cameraRotation = inputProcessor->mouseButtonsState[GLFW_MOUSE_BUTTON_RIGHT];
 
    timeSinceBeginning += deltaTime;
