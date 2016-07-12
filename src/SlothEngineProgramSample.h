@@ -17,8 +17,7 @@ private:
    InputProcessor *inputProcessor;
 
    Camera *camera;
-   std::vector<GameObject> commandos;
-   int numOfGameObjects;
+   std::vector<GameObject> gameObjects;
 
    glm::vec3 clearColor = glm::vec3(.1f, .1f, .1f);
    glm::vec3 ambientLight = glm::vec3(1.0f, 1.0f, 1.0f);
